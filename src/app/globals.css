@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fff7ed;
+  --color-cream-deep: #fdecd8;
+  --color-paper: #ffffff;
+  --color-ink: #1f2230;
+  --color-graphite: #514f5c;
+  --color-ash: #8b8896;
+  --color-line: #ede2d1;
+  --color-line-soft: #e7e5ea;
+  --color-purple: #7b67b0;
+  --color-purple-deep: #63508f;
+  --color-purple-ink: #57457f;
+  --color-purple-tint: #f1eefa;
+  --color-orange: #fb8a4c;
+  --color-orange-deep: #ef7530;
+  --color-orange-tint: #ffe9d6;
+  --color-green: #22c55e;
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+  ::selection {
+    background: var(--color-orange);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 3px;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-[-0.01em];
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-10;
+  }
+  .micro {
+    @apply font-sans text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em];
+  }
+  .display {
+    @apply font-display font-bold leading-[1.1] tracking-[-0.02em];
+    font-size: clamp(2.25rem, 5.2vw, 3.75rem);
+  }
+  .h-section {
+    @apply font-display font-bold leading-[1.15] tracking-[-0.015em];
+    font-size: clamp(1.875rem, 3.6vw, 2.75rem);
+  }
+  .h-sub {
+    @apply font-display font-semibold leading-[1.25] tracking-[-0.01em];
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  }
+  .lede {
+    @apply text-[15px] sm:text-[16px] leading-[1.65] text-graphite;
+  }
+
+  /* White rounded card with a soft shadow */
+  .card {
+    @apply rounded-2xl border border-line-soft bg-paper;
+    box-shadow: 0 1px 2px rgba(31, 34, 48, 0.04), 0 12px 32px -16px rgba(31, 34, 48, 0.12);
+  }
+
+  /* Icon badge used to lead a feature / contact tile */
+  .icon-badge {
+    @apply grid size-11 shrink-0 place-items-center rounded-xl;
+  }
+  .icon-badge-orange {
+    @apply grid size-11 shrink-0 place-items-center rounded-xl bg-orange-tint text-orange;
+  }
+  .icon-badge-purple {
+    @apply grid size-11 shrink-0 place-items-center rounded-xl bg-purple-tint text-purple;
+  }
+
+  /* Pill eyebrow badge */
+  .eyebrow-pill {
+    @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 font-sans text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em];
+  }
+
+  /* Checklist item with a small circular check */
+  .check-item {
+    @apply flex items-start gap-2.5 text-[14px] leading-snug text-graphite;
+  }
+  .check-dot {
+    @apply mt-0.5 grid size-[18px] shrink-0 place-items-center rounded-full bg-green/15 text-green;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
