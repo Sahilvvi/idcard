@@ -3,23 +3,31 @@
 import { useRef, useState } from "react";
 import { products } from "@/lib/content";
 import { AssetImage } from "./ui/AssetImage";
+import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
-function ProductCard({ item }: { item: (typeof products.items)[number] }) {
+function ProductCard({ item, index }: { item: (typeof products.items)[number]; index: number }) {
   return (
-    <article className="group relative w-[72vw] shrink-0 snap-center sm:w-[300px] lg:w-[320px]">
-      <div className="card overflow-hidden transition-shadow duration-300 group-hover:shadow-[0_24px_48px_-24px_rgba(31,34,48,0.35)]">
-        <div className="relative aspect-[4/5] overflow-hidden bg-cream">
-          <div className="h-full w-full transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]">
-            <AssetImage src={item.asset} alt={`${item.name} — product photograph`} />
+    <Reveal delay={Math.min(index, 4) * 80} className="w-[72vw] shrink-0 snap-center sm:w-[300px] lg:w-[320px]">
+      <article className="group relative">
+        <div className="card overflow-hidden transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_24px_48px_-24px_rgba(31,34,48,0.35)]">
+          <div className="relative aspect-[4/5] overflow-hidden bg-cream">
+            <div className="h-full w-full transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]">
+              <AssetImage src={item.asset} alt={`${item.name} — product photograph`} />
+            </div>
+            <span className="absolute right-3 top-3 grid size-8 place-items-center rounded-full bg-white/90 text-purple opacity-0 shadow-sm transition-opacity duration-300 group-hover:opacity-100">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <div className="p-4">
+            <h3 className="font-display text-[15px] font-semibold text-ink">{item.name}</h3>
+            <p className="micro mt-1 text-ash">{item.spec}</p>
           </div>
         </div>
-        <div className="p-4">
-          <h3 className="font-display text-[15px] font-semibold text-ink">{item.name}</h3>
-          <p className="micro mt-1 text-ash">{item.spec}</p>
-        </div>
-      </div>
-    </article>
+      </article>
+    </Reveal>
   );
 }
 
@@ -40,8 +48,11 @@ export function ProductCarousel() {
 
   return (
     <section id="products" className="relative overflow-hidden bg-cream py-16 sm:py-24">
-      <div className="container-x">
-        <SectionHeader label={products.label} title={products.title} accentLine={1} sub={products.sub} />
+      <div aria-hidden className="pointer-events-none absolute -left-20 top-10 size-[260px] rounded-full bg-orange/10 blur-[90px]" />
+      <div className="container-x relative">
+        <Reveal>
+          <SectionHeader label={products.label} title={products.title} accentLine={1} sub={products.sub} />
+        </Reveal>
       </div>
 
       <div className="container-x mt-10 flex items-center justify-end gap-3 sm:mt-14">
@@ -78,8 +89,8 @@ export function ProductCarousel() {
           setIdx(Math.round(el.scrollLeft / w));
         }}
       >
-        {items.map((p) => (
-          <ProductCard key={p.id} item={p} />
+        {items.map((p, i) => (
+          <ProductCard key={p.id} item={p} index={i} />
         ))}
       </div>
 

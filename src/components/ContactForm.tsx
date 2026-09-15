@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { contact, site } from "@/lib/content";
+import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
 type Status = "idle" | "sending" | "sent";
@@ -81,27 +82,32 @@ export function ContactForm() {
     <section id="contact" className="bg-cream py-16 sm:py-24">
       <div className="container-x grid gap-12 lg:grid-cols-[0.42fr_0.58fr] lg:gap-16">
         <div>
-          <SectionHeader label={contact.label} title={contact.title} accentLine={2} accentColor="purple" align="left" sub={contact.body} />
+          <Reveal x={-20} y={0}>
+            <SectionHeader label={contact.label} title={contact.title} accentLine={2} accentColor="purple" align="left" sub={contact.body} />
+          </Reveal>
           <div className="mt-10 space-y-4">
-            {CONTACT_TILES(site).map((tile) => (
-              <div key={tile.label} className="card flex items-center gap-4 p-4">
-                <span className="icon-badge-purple">{tile.icon}</span>
-                <div>
-                  <p className="micro text-ash">{tile.label}</p>
-                  {tile.href ? (
-                    <a href={tile.href} className="mt-0.5 block font-display text-[15px] font-semibold text-ink hover:text-purple">
-                      {tile.value}
-                    </a>
-                  ) : (
-                    <p className="mt-0.5 font-display text-[15px] font-semibold text-ink">{tile.value}</p>
-                  )}
+            {CONTACT_TILES(site).map((tile, i) => (
+              <Reveal key={tile.label} x={-20} y={0} delay={100 + i * 80}>
+                <div className="card flex items-center gap-4 p-4 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-20px_rgba(31,34,48,0.25)]">
+                  <span className="icon-badge-purple">{tile.icon}</span>
+                  <div>
+                    <p className="micro text-ash">{tile.label}</p>
+                    {tile.href ? (
+                      <a href={tile.href} className="mt-0.5 block font-display text-[15px] font-semibold text-ink hover:text-purple">
+                        {tile.value}
+                      </a>
+                    ) : (
+                      <p className="mt-0.5 font-display text-[15px] font-semibold text-ink">{tile.value}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
 
-        <div className="card relative p-6 sm:p-8" aria-live="polite">
+        <Reveal x={20} y={0} delay={120} className="relative">
+        <div className="card p-6 sm:p-8" aria-live="polite">
           {status === "sent" ? (
             <div className="flex min-h-[420px] flex-col items-start justify-center">
               <span className="icon-badge-orange">
@@ -177,6 +183,7 @@ export function ContactForm() {
             </form>
           )}
         </div>
+        </Reveal>
       </div>
     </section>
   );

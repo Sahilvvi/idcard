@@ -1,6 +1,7 @@
 import { partnershipPaths } from "@/lib/content";
 import { AssetImage } from "./ui/AssetImage";
 import { Button } from "./ui/Button";
+import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -31,13 +32,16 @@ export function PartnershipPaths() {
   return (
     <section id="software" className="bg-paper py-16 sm:py-24">
       <div className="container-x">
-        <SectionHeader label={partnershipPaths.label} title={partnershipPaths.title} accentLine={1} accentColor="purple" sub={partnershipPaths.sub} />
+        <Reveal>
+          <SectionHeader label={partnershipPaths.label} title={partnershipPaths.title} accentLine={1} accentColor="purple" sub={partnershipPaths.sub} />
+        </Reveal>
 
         <div className="mt-12 flex flex-col gap-14 sm:mt-16 sm:gap-20">
           {paths.map((p, i) => {
             const reverse = i % 2 === 1;
             return (
               <div key={p.id} className={`grid items-center gap-8 lg:grid-cols-2 lg:gap-14 ${reverse ? "lg:[&>*:first-child]:order-2" : ""}`}>
+                <Reveal x={reverse ? 30 : -30} y={0}>
                 <div>
                   <span className="icon-badge-orange">{ICONS[p.id]}</span>
                   <h3 className="h-sub mt-5 text-ink">{p.title}</h3>
@@ -60,17 +64,22 @@ export function PartnershipPaths() {
                     </Button>
                   </div>
                 </div>
+                </Reveal>
 
-                <div className="relative">
+                <Reveal x={reverse ? -30 : 30} y={0} delay={100}>
+                <div className="group relative">
                   {p.badge && (
                     <span className="absolute -top-3 left-6 z-10 rounded-full bg-purple px-3 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-white">
                       {p.badge}
                     </span>
                   )}
-                  <div className="card overflow-hidden !rounded-2xl aspect-[4/3]">
-                    <AssetImage src={p.asset} alt={p.assetAlt} />
+                  <div className="card overflow-hidden !rounded-2xl aspect-[4/3] transition-shadow duration-300 group-hover:shadow-[0_28px_50px_-24px_rgba(31,34,48,0.35)]">
+                    <div className="h-full w-full transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]">
+                      <AssetImage src={p.asset} alt={p.assetAlt} />
+                    </div>
                   </div>
                 </div>
+                </Reveal>
               </div>
             );
           })}

@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { faqs } from "@/lib/content";
+import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
 export function FAQ() {
@@ -9,9 +10,12 @@ export function FAQ() {
   const base = useId();
 
   return (
-    <section id="faq" className="bg-cream py-16 sm:py-24">
-      <div className="container-x">
-        <SectionHeader title={["Frequently Asked", "Questions"]} accentLine={1} sub="Answers to the most common questions about our B2B printing ecosystem." />
+    <section id="faq" className="relative overflow-hidden bg-cream py-16 sm:py-24">
+      <div aria-hidden className="pointer-events-none absolute -left-24 bottom-0 size-[280px] rounded-full bg-orange/10 blur-[100px]" />
+      <div className="container-x relative">
+        <Reveal>
+          <SectionHeader title={["Frequently Asked", "Questions"]} accentLine={1} sub="Answers to the most common questions about our B2B printing ecosystem." />
+        </Reveal>
 
         <ul className="mx-auto mt-10 flex max-w-3xl flex-col gap-3 sm:mt-14">
           {faqs.map((f, i) => {
@@ -19,7 +23,8 @@ export function FAQ() {
             const bid = `${base}-b-${i}`;
             const pid = `${base}-p-${i}`;
             return (
-              <li key={f.q} className="card overflow-hidden">
+              <Reveal key={f.q} delay={Math.min(i, 4) * 60} y={16}>
+              <li className="card overflow-hidden">
                 <h3>
                   <button
                     id={bid}
@@ -48,6 +53,7 @@ export function FAQ() {
                   </div>
                 </div>
               </li>
+              </Reveal>
             );
           })}
         </ul>

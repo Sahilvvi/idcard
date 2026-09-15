@@ -4,6 +4,7 @@ import { useState } from "react";
 import { industries } from "@/lib/content";
 import { AssetImage } from "./ui/AssetImage";
 import { Button } from "./ui/Button";
+import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -32,9 +33,12 @@ export function IndustrySolutions() {
   const tab = industries.tabs[active];
 
   return (
-    <section className="bg-cream py-16 sm:py-24">
-      <div className="container-x">
-        <SectionHeader label={industries.label} title={industries.title} accentLine={1} sub={industries.sub} />
+    <section className="relative overflow-hidden bg-cream py-16 sm:py-24">
+      <div aria-hidden className="pointer-events-none absolute -right-24 bottom-0 size-[320px] rounded-full bg-purple/10 blur-[100px]" />
+      <div className="container-x relative">
+        <Reveal>
+          <SectionHeader label={industries.label} title={industries.title} accentLine={1} sub={industries.sub} />
+        </Reveal>
 
         <div className="mt-12 grid gap-6 sm:mt-16 lg:grid-cols-[minmax(0,0.3fr)_minmax(0,0.7fr)] lg:gap-8">
           <div role="tablist" aria-label="Industries" aria-orientation="vertical" className="flex gap-3 overflow-x-auto no-scrollbar lg:flex-col">
@@ -48,7 +52,7 @@ export function IndustrySolutions() {
                   aria-selected={on}
                   aria-controls="is-panel"
                   onClick={() => setActive(i)}
-                  className={`flex shrink-0 items-center gap-3 rounded-xl border p-4 text-left transition-colors duration-300 ${
+                  className={`flex shrink-0 items-center gap-3 rounded-xl border p-4 text-left transition-[background-color,border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 ${
                     on ? "border-orange/40 bg-paper shadow-[0_8px_20px_-12px_rgba(31,34,48,0.2)]" : "border-line-soft bg-paper/60 hover:border-line-soft"
                   }`}
                 >

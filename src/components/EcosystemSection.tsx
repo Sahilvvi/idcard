@@ -1,4 +1,5 @@
 import { ecosystem } from "@/lib/content";
+import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
 const ICONS: Record<string, React.ReactNode> = {
@@ -26,16 +27,20 @@ export function EcosystemSection() {
   return (
     <section id="ecosystem" className="bg-paper py-16 sm:py-24">
       <div className="container-x">
-        <SectionHeader label="One Stop Solution" title={ecosystem.title} accentLine={1} accentColor="purple" sub={ecosystem.sub} />
+        <Reveal>
+          <SectionHeader label="One Stop Solution" title={ecosystem.title} accentLine={1} accentColor="purple" sub={ecosystem.sub} />
+        </Reveal>
 
         <div className="mt-12 grid gap-6 sm:mt-16 md:grid-cols-3">
-          {ecosystem.pillars.map((p) => {
+          {ecosystem.pillars.map((p, i) => {
             const core = Boolean(p.badge);
             return (
+              <Reveal key={p.id} delay={i * 100} className="h-full">
               <div
-                key={p.id}
-                className={`relative flex flex-col rounded-2xl border p-6 sm:p-7 ${
-                  core ? "border-purple/25 bg-purple-tint/40 shadow-[0_20px_40px_-24px_rgba(123,103,176,0.45)]" : "border-line-soft bg-paper"
+                className={`group relative flex h-full flex-col rounded-2xl border p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1.5 sm:p-7 ${
+                  core
+                    ? "border-purple/25 bg-purple-tint/40 shadow-[0_20px_40px_-24px_rgba(123,103,176,0.45)] hover:shadow-[0_28px_50px_-24px_rgba(123,103,176,0.55)]"
+                    : "border-line-soft bg-paper hover:shadow-[0_24px_44px_-24px_rgba(31,34,48,0.25)]"
                 }`}
               >
                 {p.badge && (
@@ -43,7 +48,7 @@ export function EcosystemSection() {
                     {p.badge}
                   </span>
                 )}
-                <span className={core ? "icon-badge-purple" : "icon-badge-orange"}>{ICONS[p.id]}</span>
+                <span className={`${core ? "icon-badge-purple" : "icon-badge-orange"} transition-transform duration-300 group-hover:scale-110`}>{ICONS[p.id]}</span>
                 <h3 className="mt-5 font-display text-[18px] font-semibold text-ink">{p.title}</h3>
                 <p className="mt-3 text-[14px] leading-relaxed text-graphite">{p.body}</p>
                 <ul className="mt-5 space-y-2.5">
@@ -59,6 +64,7 @@ export function EcosystemSection() {
                   ))}
                 </ul>
               </div>
+              </Reveal>
             );
           })}
         </div>
