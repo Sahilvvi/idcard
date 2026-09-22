@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { hero, trustMetrics } from "@/lib/content";
 import { Button } from "./ui/Button";
 import { AssetImage } from "./ui/AssetImage";
@@ -9,15 +9,35 @@ const ROTATE = ["Schools", "Corporates", "Events", "Print Vendors"];
 
 function RotatingWord() {
   const [i, setI] = useState(0);
+  const [width, setWidth] = useState<number | null>(null);
+  const words = useRef<(HTMLSpanElement | null)[]>([]);
+
   useEffect(() => {
     const t = window.setInterval(() => setI((v) => (v + 1) % ROTATE.length), 2200);
     return () => window.clearInterval(t);
   }, []);
+
+  useEffect(() => {
+    const measure = () => {
+      const el = words.current[i];
+      if (el) setWidth(el.getBoundingClientRect().width);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [i]);
+
   return (
-    <span className="relative inline-grid h-[1.15em] justify-items-start overflow-hidden text-left align-bottom">
+    <span
+      className="relative inline-grid h-[1.15em] justify-items-start overflow-hidden text-left align-bottom transition-[width] duration-500 ease-[var(--ease-out-expo)]"
+      style={width === null ? undefined : { width }}
+    >
       {ROTATE.map((w, k) => (
         <span
           key={w}
+          ref={(el) => {
+            words.current[k] = el;
+          }}
           aria-hidden={k !== i}
           className={`col-start-1 row-start-1 whitespace-nowrap text-teal underline decoration-accent decoration-[0.08em] underline-offset-[0.12em] transition-[transform,opacity] duration-600 ease-[var(--ease-out-expo)] ${
             k === i ? "translate-y-0 opacity-100" : k < i ? "-translate-y-full opacity-0" : "translate-y-full opacity-0"
