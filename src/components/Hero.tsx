@@ -59,12 +59,7 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute -left-32 top-64 size-[320px] rounded-full bg-accent/15 blur-[110px]" />
 
       <div className="container-x relative flex flex-col items-center text-center">
-        <span className="eyebrow-pill animate-[fade-up_0.6s_var(--ease-out-expo)_both] border border-brand/15 bg-white text-brand shadow-sm">
-          <span className="size-1.5 animate-pulse rounded-full bg-green" />
-          Trusted by 500+ businesses across India
-        </span>
-
-        <h1 id="hero-title" className="display mt-6 max-w-5xl animate-[fade-up_0.7s_var(--ease-out-expo)_0.08s_both] text-ink">
+        <h1 id="hero-title" className="display max-w-5xl animate-[fade-up_0.7s_var(--ease-out-expo)_0.08s_both] text-ink">
           {hero.headingPrefix}
           <span className="text-brand">{hero.headingAccent}</span>
           <br className="hidden sm:block" />
