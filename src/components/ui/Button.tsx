@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 
-type Variant = "primary" | "purple" | "ghost" | "inverse";
+type Variant = "primary" | "brand" | "ghost" | "inverse" | "outline-light";
 
 type Props = ComponentPropsWithoutRef<"a"> & {
   variant?: Variant;
@@ -8,16 +8,17 @@ type Props = ComponentPropsWithoutRef<"a"> & {
 };
 
 const styles: Record<Variant, string> = {
-  primary: "bg-orange text-white hover:bg-orange-deep",
-  purple: "bg-purple text-white hover:bg-purple-deep",
-  ghost: "bg-transparent text-purple border border-purple/40 hover:border-purple hover:bg-purple-tint",
-  inverse: "bg-white text-purple hover:bg-white/90",
+  primary: "bg-accent text-ink hover:bg-accent-deep shadow-[0_10px_24px_-10px_rgba(245,158,11,0.6)]",
+  brand: "bg-brand text-white hover:bg-brand-deep shadow-[0_10px_24px_-10px_rgba(29,78,216,0.55)]",
+  ghost: "bg-transparent text-brand border border-brand/30 hover:border-brand hover:bg-brand-tint",
+  inverse: "bg-white text-navy hover:bg-white/90",
+  "outline-light": "bg-transparent text-white border border-white/30 hover:border-white hover:bg-white/10",
 };
 
 export function Button({ variant = "primary", arrow = true, className = "", children, ...rest }: Props) {
   return (
     <a
-      className={`group relative inline-flex h-11 sm:h-12 items-center gap-2 rounded-full px-6 text-[14px] font-semibold transition-[background-color,border-color,transform] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 ${styles[variant]} ${className}`}
+      className={`group relative inline-flex h-11 sm:h-12 items-center gap-2 rounded-full px-6 text-[14px] font-semibold transition-[background-color,border-color,transform,box-shadow] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 ${styles[variant]} ${className}`}
       {...rest}
     >
       <span>{children}</span>

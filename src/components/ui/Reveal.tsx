@@ -5,13 +5,14 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 type Props = {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
   delay?: number;
   y?: number;
   x?: number;
   scale?: number;
 };
 
-export function Reveal({ children, className = "", delay = 0, y = 24, x = 0, scale = 1 }: Props) {
+export function Reveal({ children, className = "", style, delay = 0, y = 24, x = 0, scale = 1 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -31,13 +32,14 @@ export function Reveal({ children, className = "", delay = 0, y = 24, x = 0, sca
     return () => io.disconnect();
   }, []);
 
-  const style: CSSProperties = {
+  const inline: CSSProperties = {
+    ...style,
     transitionDelay: `${delay}ms`,
     transform: visible ? "none" : `translate(${x}px, ${y}px) scale(${scale})`,
   };
 
   return (
-    <div ref={ref} className={`opacity-0 transition-[opacity,transform] duration-700 ease-[var(--ease-out-expo)] ${visible ? "!opacity-100" : ""} ${className}`} style={style}>
+    <div ref={ref} className={`opacity-0 transition-[opacity,transform] duration-700 ease-[var(--ease-out-expo)] ${visible ? "!opacity-100" : ""} ${className}`} style={inline}>
       {children}
     </div>
   );

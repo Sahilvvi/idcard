@@ -37,7 +37,7 @@ export function AssetImage({ src, alt, className = "", tone = "light", priority 
         role="img"
         aria-label={alt}
         className={`relative flex h-full w-full overflow-hidden border border-dashed ${caption === "top" ? "items-start" : "items-end"} ${
-          dark ? "border-white/15 bg-ink text-white" : "border-line bg-cream-deep text-ink"
+          dark ? "border-white/15 bg-navy text-white" : "border-line bg-surface-deep text-ink"
         } ${className}`}
       >
         <span className={`absolute right-4 top-4 grid size-8 place-items-center rounded-lg ${dark ? "bg-white/10 text-white/70" : "bg-white/70 text-ash"}`}>

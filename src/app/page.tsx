@@ -5,6 +5,7 @@ import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
+import { LeadPopup } from "@/components/LeadPopup";
 import { Navbar } from "@/components/Navbar";
 import { PartnerMarquee } from "@/components/PartnerMarquee";
 import { PartnershipPaths } from "@/components/PartnershipPaths";
@@ -30,6 +31,7 @@ export default function Home() {
         <ContactForm />
       </main>
       <Footer />
+      <LeadPopup />
     </>
   );
 }

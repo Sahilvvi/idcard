@@ -10,8 +10,8 @@ export function FAQ() {
   const base = useId();
 
   return (
-    <section id="faq" className="relative overflow-hidden bg-cream py-16 sm:py-24">
-      <div aria-hidden className="pointer-events-none absolute -left-24 bottom-0 size-[280px] rounded-full bg-orange/10 blur-[100px]" />
+    <section id="faq" className="relative overflow-hidden bg-surface py-16 sm:py-24">
+      <div aria-hidden className="pointer-events-none absolute -left-24 bottom-0 size-[280px] rounded-full bg-brand/10 blur-[100px]" />
       <div className="container-x relative">
         <Reveal>
           <SectionHeader title={["Frequently Asked", "Questions"]} accentLine={1} sub="Answers to the most common questions about our B2B printing ecosystem." />
@@ -34,14 +34,14 @@ export function FAQ() {
                     onClick={() => setOpen(on ? null : i)}
                     className="flex w-full items-center justify-between gap-6 px-5 py-4 text-left sm:px-6"
                   >
-                    <span className={`font-display text-[15px] font-semibold sm:text-[16px] ${on ? "text-purple" : "text-ink"}`}>{f.q}</span>
+                    <span className={`font-display text-[15px] font-semibold sm:text-[16px] ${on ? "text-brand" : "text-ink"}`}>{f.q}</span>
                     <svg
                       width="16"
                       height="16"
                       viewBox="0 0 16 16"
                       fill="none"
                       aria-hidden
-                      className={`shrink-0 text-ash transition-transform duration-300 ${on ? "rotate-180 text-purple" : ""}`}
+                      className={`shrink-0 text-ash transition-transform duration-300 ${on ? "rotate-180 text-brand" : ""}`}
                     >
                       <path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
