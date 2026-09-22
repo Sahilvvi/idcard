@@ -4,8 +4,9 @@ export const site = {
   phone: "+91 90000 00000",
   phoneHref: "tel:+919000000000",
   email: "hello@example.com",
-  address: ["123 Sample Street,", "Business District,", "New Delhi, India 110001"],
-  location: "India (Multiple Locations)",
+  address: ["Sevoke Road,", "Siliguri, West Bengal,", "India 734001"],
+  location: "Siliguri, West Bengal",
+  mapQuery: "Siliguri, West Bengal, India",
   url: "https://example.com",
 };
 
@@ -35,7 +36,14 @@ export const trustMetrics = [
   { value: 500, suffix: "+", label: "Partners" },
   { value: 50, suffix: "+", label: "Cities" },
   { value: 99, suffix: "%", label: "On-time" },
+  { value: 1, suffix: "M+", label: "Cards printed" },
 ];
+
+export const trustedBy = {
+  label: "Trusted by industry leaders",
+  title: "Schools, corporates and print vendors across India run on IvyPrints",
+  chips: ["Schools & Colleges", "Corporates", "Event Agencies", "Print Vendors", "Universities", "Coaching Institutes"],
+};
 
 export const partnerLogos = Array.from({ length: 12 }, (_, i) => ({
   id: `partner-${String(i + 1).padStart(2, "0")}`,
@@ -177,6 +185,27 @@ export const partnershipPaths = {
       assetAlt: "Industrial card printing production floor",
     },
   ],
+};
+
+export const connectFlow = {
+  label: "How it connects",
+  title: ["One Network.", "Everyone Wins."],
+  sub: "Vendors bring demand, production partners bring capacity, and IvyPrints supplies the materials, software and quality control that hold it all together.",
+  nodes: [
+    { id: "vendor", title: "Vendors & Entrepreneurs", desc: "Sell printing in their city using the IvyPrints app and catalogue." },
+    { id: "hub", title: "IvyPrints Platform", desc: "Raw materials, order software, QC and fulfilment coordination." },
+    { id: "production", title: "Production Partners", desc: "Print and pack bulk orders to standardised benchmarks." },
+  ],
+};
+
+export const leadPopup = {
+  eyebrow: "Welcome to IvyPrints",
+  title: "Get a bulk printing quote in 24 hours",
+  body: "Tell us a little about you and our team will call back with pricing, samples and timelines for your requirement.",
+  submit: "Request a Callback",
+  dismiss: "Maybe later",
+  success: "Thanks! Our team will reach out shortly.",
+  perks: ["Factory-direct pricing", "Free sample on bulk orders", "Pan-India delivery"],
 };
 
 export const story = {
@@ -351,7 +380,13 @@ export const contact = {
 };
 
 export const footer = {
-  blurb: "We offer swift 3-day delivery and shipping across India, ensuring customer satisfaction",
+  blurb: "India's B2B printing ecosystem — quality-checked raw materials, smart order software and a nationwide production network, headquartered in Siliguri.",
+  socials: [
+    { label: "LinkedIn", href: "#" },
+    { label: "Instagram", href: "#" },
+    { label: "YouTube", href: "#" },
+    { label: "WhatsApp", href: "#" },
+  ],
   columns: [
     {
       title: "Services",

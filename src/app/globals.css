@@ -1,22 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #fff7ed;
-  --color-cream-deep: #fdecd8;
+  /* Surfaces */
+  --color-surface: #f6f8fc;
+  --color-surface-deep: #e9eef7;
   --color-paper: #ffffff;
-  --color-ink: #1f2230;
-  --color-graphite: #514f5c;
-  --color-ash: #8b8896;
-  --color-line: #ede2d1;
-  --color-line-soft: #e7e5ea;
-  --color-purple: #7b67b0;
-  --color-purple-deep: #63508f;
-  --color-purple-ink: #57457f;
-  --color-purple-tint: #f1eefa;
-  --color-orange: #fb8a4c;
-  --color-orange-deep: #ef7530;
-  --color-orange-tint: #ffe9d6;
-  --color-green: #22c55e;
+
+  /* Text */
+  --color-ink: #0b1220;
+  --color-graphite: #475069;
+  --color-ash: #8a93a8;
+
+  /* Lines */
+  --color-line: #dfe5f0;
+  --color-line-soft: #e8edf5;
+
+  /* Brand — deep blue */
+  --color-brand: #1d4ed8;
+  --color-brand-deep: #1e3fae;
+  --color-brand-ink: #14306f;
+  --color-brand-tint: #e8effd;
+
+  /* Navy — dark sections */
+  --color-navy: #0a1a3a;
+  --color-navy-deep: #06122a;
+  --color-navy-soft: #112a5c;
+
+  /* Accent — warm amber */
+  --color-accent: #f59e0b;
+  --color-accent-deep: #d97706;
+  --color-accent-tint: #fff4dc;
+
+  /* Secondary accent — teal */
+  --color-teal: #0ea5a4;
+  --color-teal-tint: #dcf7f6;
+
+  --color-green: #16a34a;
 
   --font-display: var(--font-display);
   --font-sans: var(--font-body);
@@ -34,14 +53,14 @@
     scroll-margin-top: 6rem;
   }
   body {
-    @apply bg-cream text-ink font-sans antialiased;
+    @apply bg-surface text-ink font-sans antialiased;
   }
   ::selection {
-    background: var(--color-orange);
+    background: var(--color-accent);
     color: var(--color-ink);
   }
   :focus-visible {
-    outline: 2px solid var(--color-orange);
+    outline: 2px solid var(--color-brand);
     outline-offset: 3px;
   }
   h1, h2, h3, h4 {
@@ -58,49 +77,69 @@
     @apply font-sans text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em];
   }
   .display {
-    @apply font-display font-bold leading-[1.1] tracking-[-0.02em];
-    font-size: clamp(2.25rem, 5.2vw, 3.75rem);
+    @apply font-display font-bold leading-[1.05] tracking-[-0.025em];
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
   }
   .h-section {
-    @apply font-display font-bold leading-[1.15] tracking-[-0.015em];
-    font-size: clamp(1.875rem, 3.6vw, 2.75rem);
+    @apply font-display font-bold leading-[1.12] tracking-[-0.02em];
+    font-size: clamp(1.875rem, 3.8vw, 2.875rem);
   }
   .h-sub {
     @apply font-display font-semibold leading-[1.25] tracking-[-0.01em];
     font-size: clamp(1.25rem, 1.8vw, 1.5rem);
   }
   .lede {
-    @apply text-[15px] sm:text-[16px] leading-[1.65] text-graphite;
+    @apply text-[15px] sm:text-[17px] leading-[1.65] text-graphite;
   }
 
-  /* White rounded card with a soft shadow */
   .card {
     @apply rounded-2xl border border-line-soft bg-paper;
-    box-shadow: 0 1px 2px rgba(31, 34, 48, 0.04), 0 12px 32px -16px rgba(31, 34, 48, 0.12);
+    box-shadow: 0 1px 2px rgba(11, 18, 32, 0.04), 0 12px 32px -16px rgba(11, 18, 32, 0.12);
   }
 
-  /* Icon badge used to lead a feature / contact tile */
+  /* Frosted glass on dark backgrounds */
+  .glass {
+    @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-md;
+  }
+
   .icon-badge {
     @apply grid size-11 shrink-0 place-items-center rounded-xl;
   }
-  .icon-badge-orange {
-    @apply grid size-11 shrink-0 place-items-center rounded-xl bg-orange-tint text-orange;
+  .icon-badge-accent {
+    @apply grid size-11 shrink-0 place-items-center rounded-xl bg-accent-tint text-accent-deep;
   }
-  .icon-badge-purple {
-    @apply grid size-11 shrink-0 place-items-center rounded-xl bg-purple-tint text-purple;
+  .icon-badge-brand {
+    @apply grid size-11 shrink-0 place-items-center rounded-xl bg-brand-tint text-brand;
   }
 
-  /* Pill eyebrow badge */
   .eyebrow-pill {
     @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 font-sans text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.14em];
   }
 
-  /* Checklist item with a small circular check */
   .check-item {
     @apply flex items-start gap-2.5 text-[14px] leading-snug text-graphite;
   }
   .check-dot {
     @apply mt-0.5 grid size-[18px] shrink-0 place-items-center rounded-full bg-green/15 text-green;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(90deg, var(--color-brand) 0%, var(--color-teal) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Subtle dotted grid used behind dark sections */
+  .bg-grid-dark {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .bg-grid-light {
+    background-image: linear-gradient(rgba(11, 18, 32, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11, 18, 32, 0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
   }
 }
 
@@ -112,6 +151,40 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .pause-on-hover:hover > * {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-x-rev {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.12); opacity: 0.6; }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

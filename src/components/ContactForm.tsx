@@ -8,14 +8,14 @@ import { SectionHeader } from "./ui/SectionHeader";
 type Status = "idle" | "sending" | "sent";
 
 const fieldCls =
-  "w-full rounded-xl border border-line-soft bg-paper px-4 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ash focus:border-purple";
+  "w-full rounded-xl border border-line-soft bg-surface px-4 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ash focus:border-brand focus:ring-4 focus:ring-brand/10";
 
 function Field({ id, label, type = "text", required, as }: { id: string; label: string; type?: string; required?: boolean; as?: "textarea" }) {
   return (
     <div>
       <label htmlFor={id} className="mb-1.5 block text-[13px] font-semibold text-ink">
         {label}
-        {required ? <span className="text-orange"> *</span> : null}
+        {required ? <span className="text-accent-deep"> *</span> : null}
       </label>
       {as === "textarea" ? (
         <textarea id={id} name={id} rows={4} required={required} placeholder="How can we help you?" className={`${fieldCls} resize-none`} />
@@ -79,21 +79,22 @@ export function ContactForm() {
   };
 
   return (
-    <section id="contact" className="bg-cream py-16 sm:py-24">
-      <div className="container-x grid gap-12 lg:grid-cols-[0.42fr_0.58fr] lg:gap-16">
+    <section id="contact" className="relative overflow-hidden bg-surface py-16 sm:py-24">
+      <div aria-hidden className="pointer-events-none absolute -left-40 top-20 size-[420px] rounded-full bg-teal/10 blur-[120px]" />
+      <div className="container-x relative grid gap-12 lg:grid-cols-[0.42fr_0.58fr] lg:gap-16">
         <div>
           <Reveal x={-20} y={0}>
-            <SectionHeader label={contact.label} title={contact.title} accentLine={2} accentColor="purple" align="left" sub={contact.body} />
+            <SectionHeader label={contact.label} title={contact.title} accentLine={2} accentColor="brand" align="left" sub={contact.body} />
           </Reveal>
           <div className="mt-10 space-y-4">
             {CONTACT_TILES(site).map((tile, i) => (
               <Reveal key={tile.label} x={-20} y={0} delay={100 + i * 80}>
-                <div className="card flex items-center gap-4 p-4 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-20px_rgba(31,34,48,0.25)]">
-                  <span className="icon-badge-purple">{tile.icon}</span>
+                <div className="card flex items-center gap-4 p-4 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-20px_rgba(29,78,216,0.3)]">
+                  <span className="icon-badge-brand">{tile.icon}</span>
                   <div>
                     <p className="micro text-ash">{tile.label}</p>
                     {tile.href ? (
-                      <a href={tile.href} className="mt-0.5 block font-display text-[15px] font-semibold text-ink hover:text-purple">
+                      <a href={tile.href} className="mt-0.5 block font-display text-[15px] font-semibold text-ink hover:text-brand">
                         {tile.value}
                       </a>
                     ) : (
@@ -103,14 +104,29 @@ export function ContactForm() {
                 </div>
               </Reveal>
             ))}
+            <Reveal x={-20} y={0} delay={360}>
+              <div className="relative overflow-hidden rounded-2xl bg-navy p-5 text-white">
+                <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full bg-brand/50 blur-2xl" />
+                <p className="micro text-white/60">Head office</p>
+                <p className="mt-1 font-display text-[15px] font-semibold">{site.address.join(" ")}</p>
+                <p className="mt-3 flex items-center gap-2 text-[12.5px] text-white/70">
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-green opacity-75" />
+                    <span className="relative inline-flex size-2 rounded-full bg-green" />
+                  </span>
+                  Team online · Mon–Sat, 10:00–19:00 IST
+                </p>
+              </div>
+            </Reveal>
           </div>
         </div>
 
         <Reveal x={20} y={0} delay={120} className="relative">
-        <div className="card p-6 sm:p-8" aria-live="polite">
+        <div className="card relative overflow-hidden p-6 sm:p-8" aria-live="polite">
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand via-teal to-accent" />
           {status === "sent" ? (
             <div className="flex min-h-[420px] flex-col items-start justify-center">
-              <span className="icon-badge-orange">
+              <span className="icon-badge-accent">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <path d="M4 12.5 9.5 18 20 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -120,7 +136,7 @@ export function ContactForm() {
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-graphite">
                 Our team reviews every inquiry and typically responds within one business day. For urgent requirements call {site.phone}.
               </p>
-              <button type="button" onClick={() => setStatus("idle")} className="micro mt-8 text-purple hover:underline">
+              <button type="button" onClick={() => setStatus("idle")} className="micro mt-8 text-brand hover:underline">
                 Send another inquiry
               </button>
             </div>
@@ -141,7 +157,7 @@ export function ContactForm() {
                   {(["printing", "software"] as const).map((t) => (
                     <label key={t} className="relative cursor-pointer">
                       <input type="radio" name="interest" value={t} checked={type === t} onChange={() => setType(t)} className="peer sr-only" />
-                      <span className="block rounded-full px-5 py-2 text-[13px] font-semibold capitalize text-graphite transition-colors peer-checked:bg-purple peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-purple/40">
+                      <span className="block rounded-full px-5 py-2 text-[13px] font-semibold capitalize text-graphite transition-colors peer-checked:bg-navy peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand/40">
                         {t === "printing" ? "Printing services" : "Software platform"}
                       </span>
                     </label>
@@ -151,7 +167,7 @@ export function ContactForm() {
 
               <div>
                 <label htmlFor="product" className="mb-1.5 block text-[13px] font-semibold text-ink">
-                  Product <span className="text-orange">*</span>
+                  Product <span className="text-accent-deep">*</span>
                 </label>
                 <select id="product" name="product" defaultValue="" className={`${fieldCls} appearance-none`}>
                   <option value="" disabled>
@@ -172,7 +188,7 @@ export function ContactForm() {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="inline-flex h-12 items-center gap-2 rounded-full bg-purple px-7 text-[14px] font-semibold text-white transition-colors hover:bg-purple-deep disabled:opacity-60"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-brand px-7 text-[14px] font-semibold text-white shadow-[0_16px_30px_-14px_rgba(29,78,216,0.6)] transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-brand-deep disabled:opacity-60"
                 >
                   {status === "sending" ? "Sending…" : "Submit Inquiry"}
                   <span aria-hidden className={status === "sending" ? "animate-spin" : ""}>

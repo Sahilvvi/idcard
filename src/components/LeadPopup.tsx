@@ -1,0 +1,169 @@
+"use client";
+
+import { useEffect, useState, type FormEvent } from "react";
+import { leadPopup, site } from "@/lib/content";
+import { LogoMark } from "./Navbar";
+
+const STORAGE_KEY = "ivy-lead-popup-dismissed";
+const SHOW_DELAY_MS = 2500;
+
+type Status = "idle" | "sending" | "sent";
+
+const fieldCls =
+  "w-full rounded-xl border border-line-soft bg-surface px-4 py-3 text-[14px] text-ink outline-none transition-[border-color,box-shadow] placeholder:text-ash focus:border-brand focus:ring-4 focus:ring-brand/10";
+
+function Field({ id, label, type = "text", autoComplete }: { id: string; label: string; type?: string; autoComplete?: string }) {
+  return (
+    <div>
+      <label htmlFor={`lp-${id}`} className="mb-1.5 block text-[12.5px] font-semibold text-ink">
+        {label} <span className="text-accent-deep">*</span>
+      </label>
+      <input id={`lp-${id}`} name={id} type={type} required autoComplete={autoComplete} placeholder={label} className={fieldCls} />
+    </div>
+  );
+}
+
+export function LeadPopup() {
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem(STORAGE_KEY)) return;
+    const t = window.setTimeout(() => setOpen(true), SHOW_DELAY_MS);
+    return () => window.clearTimeout(t);
+  }, []);
+
+  const close = () => {
+    window.sessionStorage.setItem(STORAGE_KEY, "1");
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        window.sessionStorage.setItem(STORAGE_KEY, "1");
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status !== "idle") return;
+    setStatus("sending");
+    // No backend is wired yet: simulate the request so the success state is demonstrable.
+    window.setTimeout(() => {
+      setStatus("sent");
+      window.sessionStorage.setItem(STORAGE_KEY, "1");
+      window.setTimeout(() => setOpen(false), 1800);
+    }, 900);
+  };
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] grid place-items-center p-4" role="dialog" aria-modal="true" aria-labelledby="lp-title">
+      <button aria-label="Close" onClick={close} className="absolute inset-0 bg-navy-deep/70 backdrop-blur-sm animate-[fade-up_0.4s_ease_both]" />
+
+      <div className="relative w-full max-w-3xl overflow-hidden rounded-[28px] bg-white shadow-[0_60px_120px_-40px_rgba(6,18,42,0.7)] animate-[lp-in_0.6s_var(--ease-out-expo)_both] grid md:grid-cols-[0.9fr_1.1fr]">
+        {/* Brand panel */}
+        <div className="relative overflow-hidden bg-navy p-7 text-white sm:p-9">
+          <div aria-hidden className="bg-grid-dark pointer-events-none absolute inset-0 opacity-70" />
+          <div aria-hidden className="pointer-events-none absolute -left-20 -top-20 size-64 rounded-full bg-brand/60 blur-3xl" />
+          <div aria-hidden className="pointer-events-none absolute -bottom-24 -right-16 size-64 rounded-full bg-accent/30 blur-3xl" />
+
+          <div className="relative flex items-center gap-3">
+            <LogoMark size={44} />
+            <span className="font-display text-[20px] font-bold tracking-[-0.01em]">
+              IVY<span className="font-medium text-white/60">PRINTS</span>
+            </span>
+          </div>
+
+          <p className="micro relative mt-8 text-accent">{leadPopup.eyebrow}</p>
+          <h2 id="lp-title" className="relative mt-3 font-display text-[26px] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[30px]">
+            {leadPopup.title}
+          </h2>
+          <p className="relative mt-4 text-[14px] leading-relaxed text-white/70">{leadPopup.body}</p>
+
+          <ul className="relative mt-7 space-y-2.5">
+            {leadPopup.perks.map((p) => (
+              <li key={p} className="flex items-center gap-2.5 text-[13.5px] text-white/85">
+                <span className="grid size-5 place-items-center rounded-full bg-teal/25 text-teal">
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden>
+                    <path d="M2 6.2 4.8 9 10 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+
+          <p className="relative mt-8 text-[12px] text-white/50">
+            {site.location} · {site.phone}
+          </p>
+        </div>
+
+        {/* Form */}
+        <div className="relative p-6 sm:p-8" aria-live="polite">
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Close popup"
+            className="absolute right-4 top-4 grid size-9 place-items-center rounded-full text-graphite transition-colors hover:bg-surface-deep hover:text-ink"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
+
+          {status === "sent" ? (
+            <div className="flex h-full min-h-[360px] flex-col items-center justify-center text-center">
+              <span className="grid size-16 place-items-center rounded-full bg-green/15 text-green animate-[lp-in_0.5s_var(--ease-out-expo)_both]">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M4 12.5 9.5 18 20 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <h3 className="mt-6 font-display text-[22px] font-bold text-ink">{leadPopup.success}</h3>
+              <p className="mt-2 text-[14px] text-graphite">Usually within one business day.</p>
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} className="mt-6 space-y-4 md:mt-2">
+              <p className="micro text-ash">Your details</p>
+              <Field id="name" label="Full name" autoComplete="name" />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field id="phone" label="Phone number" type="tel" autoComplete="tel" />
+                <Field id="email" label="Email" type="email" autoComplete="email" />
+              </div>
+              <Field id="business" label="Business / Institution name" autoComplete="organization" />
+
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="mt-2 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand text-[14px] font-semibold text-white shadow-[0_16px_30px_-14px_rgba(29,78,216,0.6)] transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-brand-deep disabled:opacity-60"
+              >
+                {status === "sending" ? "Sending…" : leadPopup.submit}
+                <span aria-hidden className={status === "sending" ? "animate-spin" : ""}>
+                  {status === "sending" ? "◌" : "→"}
+                </span>
+              </button>
+              <button type="button" onClick={close} className="block w-full text-center text-[12.5px] text-ash transition-colors hover:text-graphite">
+                {leadPopup.dismiss}
+              </button>
+              <p className="text-center text-[11px] text-ash">We never share your details. No spam, ever.</p>
+            </form>
+          )}
+        </div>
+      </div>
+
+      <style>{`@keyframes lp-in{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:1;transform:none}}`}</style>
+    </div>
+  );
+}
