@@ -1,21 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { nav, site } from "@/lib/content";
 
-export function LogoMark({ size = 36, className = "" }: { size?: number; className?: string }) {
+/** Brand logo. `size` is the rendered height; the SVG is 256x110. On dark backgrounds it sits on a white chip. */
+export function LogoMark({ size = 36, className = "", chip = false }: { size?: number; className?: string; chip?: boolean }) {
+  const img = (
+    <Image
+      src="/logo.svg"
+      alt={`${site.name} logo`}
+      width={256}
+      height={110}
+      priority
+      style={{ height: size, width: "auto" }}
+      className={chip ? "" : `shrink-0 ${className}`}
+    />
+  );
+  if (!chip) return img;
   return (
-    <span
-      style={{ width: size, height: size }}
-      className={`relative grid shrink-0 place-items-center overflow-hidden rounded-xl bg-gradient-to-br from-brand to-teal text-white shadow-[0_8px_20px_-8px_rgba(29,78,216,0.6)] ${className}`}
-    >
-      <svg width={size * 0.55} height={size * 0.55} viewBox="0 0 24 24" fill="none" aria-hidden>
-        <rect x="4" y="3" width="16" height="18" rx="3" fill="white" fillOpacity="0.96" />
-        <rect x="7" y="7" width="6" height="6" rx="1.4" fill="#1d4ed8" />
-        <rect x="7" y="15" width="10" height="1.6" rx="0.8" fill="#f59e0b" />
-        <rect x="15" y="7" width="2" height="6" rx="0.8" fill="#0ea5a4" />
-      </svg>
-    </span>
+    <span className={`inline-flex shrink-0 items-center rounded-xl bg-white px-2.5 py-1.5 shadow-sm ${className}`}>{img}</span>
   );
 }
 
@@ -23,12 +27,11 @@ export function Logo({ className = "", tone = "light" }: { className?: string; t
   const dark = tone === "dark";
   return (
     <a href="#top" aria-label={`${site.name} home`} className={`flex items-center gap-2.5 ${className}`}>
-      <LogoMark />
-      <span className="flex flex-col leading-none">
-        <span className={`font-display text-[17px] font-bold tracking-[-0.01em] ${dark ? "text-white" : "text-ink"}`}>
-          IVY<span className={`font-medium ${dark ? "text-white/70" : "text-brand"}`}>PRINTS</span>
-        </span>
-        <span className={`mt-0.5 hidden text-[10px] sm:block ${dark ? "text-white/50" : "text-ash"}`}>India&apos;s Fastest ID Card Manufacturer</span>
+      <LogoMark size={dark ? 30 : 38} chip={dark} />
+      <span className={`hidden border-l pl-2.5 text-[10.5px] leading-tight sm:block ${dark ? "border-white/20 text-white/60" : "border-line text-ash"}`}>
+        India&apos;s Fastest
+        <br />
+        ID Card Manufacturer
       </span>
     </a>
   );

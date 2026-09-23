@@ -42,10 +42,7 @@ export function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div>
             <a href="#top" className="inline-flex items-center gap-3">
-              <LogoMark size={40} />
-              <span className="font-display text-[20px] font-bold tracking-[-0.01em]">
-                IVY<span className="font-medium text-white/60">PRINTS</span>
-              </span>
+              <LogoMark size={36} chip />
             </a>
             <p className="mt-5 max-w-md text-[14.5px] leading-relaxed text-white/65">{footer.blurb}</p>
             <ul className="mt-6 flex flex-wrap gap-2.5">

@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     siteName: "IvyPrints",
     title,
     description,
-    images: [{ url: "/assets/og-idcard.webp", width: 1200, height: 630, alt: "IvyPrints ID cards and lanyards" }],
+    images: [{ url: "/assets/og-logo.webp", width: 1200, height: 630, alt: "IvyPrints logo" }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["/assets/og-idcard.webp"],
+    images: ["/assets/og-logo.webp"],
   },
   robots: { index: true, follow: true },
 };
