@@ -115,7 +115,7 @@ export function Hero() {
               </svg>
             </span>
             <span>
-              <span className="block text-[13px] font-semibold text-ink">Order #IVY-48213</span>
+              <span className="block text-[13px] font-semibold text-ink">Order #IDM-48213</span>
               <span className="block text-[11px] text-ash">QC passed · Dispatched</span>
             </span>
           </div>
