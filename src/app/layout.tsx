@@ -16,9 +16,9 @@ const body = Inter({
   display: "swap",
 });
 
-const title = "IvyPrints — India's Fastest ID Card Printing & B2B Printing Ecosystem";
+const title = "iDM — India's Fastest ID Card Printing & B2B Printing Ecosystem";
 const description =
-  "IvyPrints is a technology-driven B2B printing platform for bulk ID card printing across India: quality-checked PVC raw materials, order & plant software, and a pan-India production and fulfilment network for schools, colleges, corporates and printing vendors.";
+  "iDM is a technology-driven B2B printing platform for bulk ID card printing across India: quality-checked PVC raw materials, order & plant software, and a pan-India production and fulfilment network for schools, colleges, corporates and printing vendors.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -41,16 +41,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: site.url,
-    siteName: "IvyPrints",
+    siteName: "iDM",
     title,
     description,
-    images: [{ url: "/assets/og-idcard.webp", width: 1200, height: 630, alt: "IvyPrints ID cards and lanyards" }],
+    images: [{ url: "/assets/og-logo.webp", width: 1200, height: 630, alt: "iDM logo" }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["/assets/og-idcard.webp"],
+    images: ["/assets/og-logo.webp"],
   },
   robots: { index: true, follow: true },
 };
@@ -64,7 +64,7 @@ export const viewport: Viewport = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "IvyPrints",
+  name: "iDM",
   url: site.url,
   email: site.email,
   telephone: site.phone,

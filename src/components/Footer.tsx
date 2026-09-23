@@ -42,10 +42,7 @@ export function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div>
             <a href="#top" className="inline-flex items-center gap-3">
-              <LogoMark size={40} />
-              <span className="font-display text-[20px] font-bold tracking-[-0.01em]">
-                IVY<span className="font-medium text-white/60">PRINTS</span>
-              </span>
+              <LogoMark size={36} chip />
             </a>
             <p className="mt-5 max-w-md text-[14.5px] leading-relaxed text-white/65">{footer.blurb}</p>
             <ul className="mt-6 flex flex-wrap gap-2.5">
@@ -133,7 +130,7 @@ export function Footer() {
             <div className="mt-4 overflow-hidden rounded-2xl border border-white/10 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
               <iframe
                 src={mapSrc}
-                title="IvyPrints Siliguri location map"
+                title="iDM Siliguri location map"
                 loading="lazy"
                 className="h-40 w-full opacity-80 grayscale-[35%] transition-opacity duration-300 hover:opacity-100"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -165,7 +162,7 @@ export function Footer() {
       </div>
 
       <p aria-hidden className="pointer-events-none select-none px-4 pb-2 text-center font-display text-[16vw] font-bold leading-[0.8] tracking-[-0.06em] text-white/[0.04]">
-        IVYPRINTS
+        iDM
       </p>
     </footer>
   );

@@ -1,5 +1,5 @@
 export const site = {
-  name: "IvyPrints",
+  name: "iDM",
   tagline: "India's Fastest ID Card Printing & B2B Printing Ecosystem",
   phone: "+91 90000 00000",
   phoneHref: "tel:+919000000000",
@@ -12,7 +12,7 @@ export const site = {
 
 export const nav = [
   { label: "Home", href: "#top" },
-  { label: "About IVY", href: "#ecosystem" },
+  { label: "About iDM", href: "#ecosystem" },
   { label: "Products", href: "#products" },
   { label: "Software", href: "#software" },
   { label: "Cities", href: "#story" },
@@ -24,12 +24,12 @@ export const hero = {
   headingAccent: "Printing And Supplier",
   subheading: "A Complete B2B Printing Ecosystem for Schools, Corporates & Vendors",
   body:
-    "IvyPrints is a technology-driven B2B printing platform that simplifies bulk printing across India. From quality-checked raw materials and smart software to high-volume ID card printing, we help you manage printing at scale—transparently and efficiently.",
+    "iDM is a technology-driven B2B printing platform that simplifies bulk printing across India. From quality-checked raw materials and smart software to high-volume ID card printing, we help you manage printing at scale—transparently and efficiently.",
   primaryCta: "Get Started",
   secondaryCta: "Explore Solutions",
   caption: "Quality Control & Fulfilment Network",
   asset: "/assets/hero-id-cards.webp",
-  assetAlt: "IvyPrints ID cards and lanyards laid out on a table",
+  assetAlt: "iDM ID cards and lanyards laid out on a table",
 };
 
 export const trustMetrics = [
@@ -41,7 +41,7 @@ export const trustMetrics = [
 
 export const trustedBy = {
   label: "Trusted by industry leaders",
-  title: "Schools, corporates and print vendors across India run on IvyPrints",
+  title: "Schools, corporates and print vendors across India run on iDM",
   chips: ["Schools & Colleges", "Corporates", "Event Agencies", "Print Vendors", "Universities", "Coaching Institutes"],
 };
 
@@ -62,7 +62,7 @@ export const ecosystem = {
       eyebrow: "Material",
       title: "Raw Material Supply",
       body:
-        "Access quality-checked printing raw materials at transparent prices, delivered directly from IvyPrints warehouses across India. We eliminate dependency on local suppliers by offering consistent quality, predictable pricing, and reliable logistics.",
+        "Access quality-checked printing raw materials at transparent prices, delivered directly from iDM warehouses across India. We eliminate dependency on local suppliers by offering consistent quality, predictable pricing, and reliable logistics.",
       points: [
         "Quality-checked PVC sheets & consumables",
         "Transparent, centralized pricing",
@@ -70,7 +70,7 @@ export const ecosystem = {
         "Fast & reliable delivery timelines",
       ],
       asset: "/assets/raw-materials.webp",
-      assetAlt: "PVC sheets, clips and lanyard rolls stacked in an IvyPrints warehouse",
+      assetAlt: "PVC sheets, clips and lanyard rolls stacked in an iDM warehouse",
       tone: "ivory",
     },
     {
@@ -80,7 +80,7 @@ export const ecosystem = {
       badge: "Core platform",
       title: "Software & Technology Platform",
       body:
-        "Our in-house software and mobile tools power every stage of the printing workflow— from order intake and data validation to production tracking and dispatch. IvyPrints technology reduces errors, saves time, and gives complete operational visibility.",
+        "Our in-house software and mobile tools power every stage of the printing workflow— from order intake and data validation to production tracking and dispatch. iDM technology reduces errors, saves time, and gives complete operational visibility.",
       points: [
         "Order & plant management system",
         "Mobile app for partners & vendors",
@@ -88,7 +88,7 @@ export const ecosystem = {
         "Automated workflows & reporting",
       ],
       asset: "/assets/software-platform.webp",
-      assetAlt: "IvyPrints order management dashboard and partner mobile app",
+      assetAlt: "iDM order management dashboard and partner mobile app",
       tone: "charcoal",
     },
     {
@@ -97,7 +97,7 @@ export const ecosystem = {
       eyebrow: "Production · Quality · Delivery",
       title: "Finished Goods & Fulfilment",
       body:
-        "Leverage IvyPrints' nationwide production and fulfilment network to deliver high-volume printing orders with speed and consistency. Every order undergoes rigorous quality checks before being delivered to the customer.",
+        "Leverage iDM's nationwide production and fulfilment network to deliver high-volume printing orders with speed and consistency. Every order undergoes rigorous quality checks before being delivered to the customer.",
       points: [
         "Pan-India production partner network",
         "Standardized quality assurance process",
@@ -113,7 +113,7 @@ export const ecosystem = {
 };
 
 export const products = {
-  label: "IvyPrints Products",
+  label: "iDM Products",
   title: ["Unlimited Printing Options.", "One Trusted Platform."],
   sub: "From business essentials to custom marketing materials, access India's largest printing catalogue with guaranteed quality and fast turnaround.",
   items: [
@@ -140,7 +140,7 @@ export const partnershipPaths = {
       nav: "Vendor / Entrepreneur",
       title: "Are You a Vendor or Entrepreneur?",
       body:
-        "Whether you're starting a new printing business or scaling an existing one, IvyPrints provides the supply chain, technology, and operational support needed to grow confidently.",
+        "Whether you're starting a new printing business or scaling an existing one, iDM provides the supply chain, technology, and operational support needed to grow confidently.",
       points: [
         "Nationwide backend printing & fulfilment",
         "Raw materials at factory-direct prices",
@@ -157,7 +157,7 @@ export const partnershipPaths = {
       badge: "Most recommended",
       title: "Looking for Raw Material Supply?",
       body:
-        "Source quality-checked printing raw materials from a centralized, transparent system. IvyPrints eliminates dependency on unverified local suppliers with predictable pricing.",
+        "Source quality-checked printing raw materials from a centralized, transparent system. iDM eliminates dependency on unverified local suppliers with predictable pricing.",
       points: [
         "Quality-checked PVC sheets & consumables",
         "Transparent pricing, no hidden margins",
@@ -173,7 +173,7 @@ export const partnershipPaths = {
       nav: "Production Partner",
       title: "Need a Production Partner?",
       body:
-        "Join IvyPrints' nationwide production network and receive consistent, high-volume orders with standardized workflows and clear quality benchmarks.",
+        "Join iDM's nationwide production network and receive consistent, high-volume orders with standardized workflows and clear quality benchmarks.",
       points: [
         "Steady inflow of bulk printing orders",
         "Standardized production & QC processes",
@@ -190,16 +190,16 @@ export const partnershipPaths = {
 export const connectFlow = {
   label: "How it connects",
   title: ["One Network.", "Everyone Wins."],
-  sub: "Vendors bring demand, production partners bring capacity, and IvyPrints supplies the materials, software and quality control that hold it all together.",
+  sub: "Vendors bring demand, production partners bring capacity, and iDM supplies the materials, software and quality control that hold it all together.",
   nodes: [
-    { id: "vendor", title: "Vendors & Entrepreneurs", desc: "Sell printing in their city using the IvyPrints app and catalogue." },
-    { id: "hub", title: "IvyPrints Platform", desc: "Raw materials, order software, QC and fulfilment coordination." },
+    { id: "vendor", title: "Vendors & Entrepreneurs", desc: "Sell printing in their city using the iDM app and catalogue." },
+    { id: "hub", title: "iDM Platform", desc: "Raw materials, order software, QC and fulfilment coordination." },
     { id: "production", title: "Production Partners", desc: "Print and pack bulk orders to standardised benchmarks." },
   ],
 };
 
 export const leadPopup = {
-  eyebrow: "Welcome to IvyPrints",
+  eyebrow: "Welcome to iDM",
   title: "Get a bulk printing quote in 24 hours",
   body: "Tell us a little about you and our team will call back with pricing, samples and timelines for your requirement.",
   submit: "Request a Callback",
@@ -229,7 +229,7 @@ export const industries = {
       kicker: "Schools & Coachings",
       title: "ID Card Solutions for Educational Institutions",
       body:
-        "IvyPrints specializes in bulk ID card printing for schools, colleges, universities, and coaching institutes with technology-driven production, standardized quality, and fast delivery across India.",
+        "iDM specializes in bulk ID card printing for schools, colleges, universities, and coaching institutes with technology-driven production, standardized quality, and fast delivery across India.",
       stats: [
         { value: "500+", label: "Schools & Colleges" },
         { value: "1M+", label: "ID Cards Printed" },
@@ -259,7 +259,7 @@ export const industries = {
       kicker: "Conferences & Expos",
       title: "Badge & Pass Printing for Events",
       body:
-        "High-volume event badges, delegate passes and branded lanyards produced through the same standardized IvyPrints workflow—fast turnaround with order-level tracking.",
+        "High-volume event badges, delegate passes and branded lanyards produced through the same standardized iDM workflow—fast turnaround with order-level tracking.",
       stats: [
         { value: "24Hrs", label: "Dispatch" },
         { value: "50+", label: "Cities" },
@@ -318,7 +318,7 @@ export const industries = {
 
 export const idCardFeatures = [
   { id: "rfid", label: "RFID", title: "RFID layer", body: "125kHz / 13.56MHz antenna and chip laminated inside the card body for access control and attendance.", pos: { x: -1, y: -0.6 } },
-  { id: "security", label: "Security", title: "Secure data handling", body: "Data validated in the IvyPrints platform before print; each card tracked at order level.", pos: { x: 1, y: -0.7 } },
+  { id: "security", label: "Security", title: "Secure data handling", body: "Data validated in the iDM platform before print; each card tracked at order level.", pos: { x: 1, y: -0.7 } },
   { id: "design", label: "Custom Design", title: "Card artwork", body: "Choose from 250+ design templates or supply institution branding. Edge-to-edge print.", pos: { x: -1.15, y: 0.15 } },
   { id: "pvc", label: "PVC", title: "0.76mm PVC", body: "Quality-checked PVC sheets, laminated to a standard 0.76mm card thickness.", pos: { x: 1.15, y: 0.1 } },
   { id: "nfc", label: "NFC", title: "NFC option", body: "Tap-enabled smart cards for contactless identification and access.", pos: { x: -0.85, y: 0.85 } },
@@ -333,8 +333,8 @@ export const proofStats = [
 
 export const faqs = [
   {
-    q: "What makes IvyPrints different from other printing companies?",
-    a: "IvyPrints is not a single print shop. It is a B2B ecosystem connecting quality-checked raw materials, in-house order and plant software, a pan-India production partner network and a standardized quality-control and fulfilment process—so bulk printing can be managed transparently at scale.",
+    q: "What makes iDM different from other printing companies?",
+    a: "iDM is not a single print shop. It is a B2B ecosystem connecting quality-checked raw materials, in-house order and plant software, a pan-India production partner network and a standardized quality-control and fulfilment process—so bulk printing can be managed transparently at scale.",
   },
   {
     q: "Are there any eco-friendly printing options available?",
@@ -345,7 +345,7 @@ export const faqs = [
     a: "Yes. Samples can be arranged before a bulk order so you can verify material, print quality and finish. Share your requirement through the contact form and our team will coordinate.",
   },
   {
-    q: "What payment methods does IvyPrints accept?",
+    q: "What payment methods does iDM accept?",
     a: "We support standard business payment methods including bank transfer and UPI. Payment terms for partners and bulk orders are confirmed at onboarding.",
   },
   {
@@ -421,5 +421,5 @@ export const footer = {
     { label: "Privacy Policy", href: "#" },
     { label: "Terms and Conditions", href: "#" },
   ],
-  copyright: "© 2026 IvyPrints - ID Card & Lanyard Printing Services. All rights reserved.",
+  copyright: "© 2026 iDM - ID Card & Lanyard Printing Services. All rights reserved.",
 };

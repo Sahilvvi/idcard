@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="110" viewBox="0 0 256 110" role="img" aria-labelledby="title description">
+  <title id="title">iDM logo</title>
+  <desc id="description">Blue iDM wordmark with a green approval check accent.</desc>
+  <defs>
+    <linearGradient id="accent" x2=".8" y2="1">
+      <stop stop-color="#2cba44" />
+      <stop offset="1" stop-color="#009448" />
+    </linearGradient>
+  </defs>
+  <g fill="#0755a9">
+    <circle cx="14" cy="24" r="12" />
+    <path d="M3 43h22v65H3zM36 16h54c38 0 59 20 59 47s-22 45-57 45H36V16zm21 20v51h33c22 0 36-8 36-25s-14-26-36-26H57z" fill-rule="evenodd" />
+    <path d="M157 16h23l27 46 26-46h23v92h-22V53l-27 42-27-42v55h-23z" />
+  </g>
+  <path d="M66 61c8-8 15-9 22-2l9 10C124 38 158 9 173 2c-28 26-51 55-72 84-7 9-16 10-24 2L59 68z" fill="url(#accent)" stroke="#fff" stroke-width="4" paint-order="stroke" />
+</svg>

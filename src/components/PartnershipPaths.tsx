@@ -43,8 +43,8 @@ function ConnectDiagram() {
         <div className="relative z-10 mx-auto flex flex-col items-center text-center">
           <span aria-hidden className="absolute left-1/2 top-1/2 size-40 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-brand/30 animate-[spin-slow_30s_linear_infinite]" />
           <span aria-hidden className="absolute left-1/2 top-1/2 size-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand/10 animate-[pulse-soft_5s_ease-in-out_infinite]" />
-          <div className="relative grid size-28 place-items-center rounded-full bg-gradient-to-br from-brand to-teal text-white shadow-[0_30px_60px_-20px_rgba(29,78,216,0.6)]">
-            <LogoMark size={52} className="!bg-white/15 !shadow-none" />
+          <div className="relative grid size-28 place-items-center rounded-full bg-white shadow-[0_30px_60px_-20px_rgba(29,78,216,0.45)] ring-4 ring-brand/10">
+            <LogoMark size={34} />
           </div>
           <p className="relative mt-4 font-display text-[15px] font-semibold text-ink">{hub.title}</p>
           <p className="relative mt-1 max-w-[220px] text-[12.5px] leading-snug text-graphite">{hub.desc}</p>

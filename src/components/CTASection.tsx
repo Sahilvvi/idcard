@@ -17,7 +17,7 @@ export function CTASection() {
 
             {/* Floating card chips */}
             <div aria-hidden className="pointer-events-none absolute left-[8%] top-[18%] hidden rotate-[-8deg] rounded-xl bg-white/10 px-4 py-3 text-left backdrop-blur-sm animate-[float-y_7s_ease-in-out_infinite] lg:block">
-              <p className="micro text-white/60">Order #IVY-2481</p>
+              <p className="micro text-white/60">Order #IDM-2481</p>
               <p className="mt-1 font-display text-[14px] font-semibold">1,200 cards · QC passed</p>
             </div>
             <div aria-hidden className="pointer-events-none absolute bottom-[18%] right-[8%] hidden rotate-[6deg] rounded-xl bg-white/10 px-4 py-3 text-left backdrop-blur-sm animate-[float-y_8s_ease-in-out_infinite_1s] lg:block">
@@ -28,7 +28,7 @@ export function CTASection() {
             <div className="relative mx-auto max-w-3xl">
               <span className="eyebrow-pill inline-flex border-white/15 bg-white/10 text-white/80">
                 <span className="size-1.5 rounded-full bg-accent" />
-                Partner with IvyPrints
+                Partner with iDM
               </span>
               <h2 className="display mt-6 text-white">
                 {cta.title[0]} <span className="text-gradient" style={{ backgroundImage: "linear-gradient(90deg,#f59e0b 0%,#fbbf24 45%,#5eead4 100%)" }}>{cta.title[1]}</span>
