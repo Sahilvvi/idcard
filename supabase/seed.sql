@@ -6,7 +6,7 @@ insert into public.idm_posts (slug, title, excerpt, content, cover_image, catego
   'The complete bulk ID card printing checklist for schools',
   'From collecting student data to final dispatch, here is the exact 9-step process schools use to ship thousands of error-free ID cards before the first bell.',
   E'## Why a checklist matters\n\nA school ID card run is deceptively complex: thousands of photos, spelling-sensitive names, class and section mappings, and a hard deadline. Most reprints happen because of data, not printing.\n\n## The 9 steps\n\n1. **Freeze the template.** Lock the design, logo position and field order before collecting data.\n2. **Collect data in one sheet.** Use a single spreadsheet with fixed column headers. iDM''s upload tool validates it automatically.\n3. **Standardise photos.** 300 DPI, plain background, filename = admission number.\n4. **Run validation.** Duplicate admission numbers, missing photos and mismatched sections are caught in seconds.\n5. **Digital proof.** Approve one card per class from the proof gallery.\n6. **Print & laminate.** 0.76 mm PVC, UV-protected lamination.\n7. **QC scan.** Every card is scanned against the data sheet.\n8. **Pack by class.** Cards are bundled per class/section with a manifest.\n9. **Dispatch & track.** Live tracking is shared with the school coordinator.\n\n## Timeline\n\nWith clean data, a 3,000-card school run ships from iDM Siliguri in 3-4 working days.',
-  '/assets/industry-education.webp',
+  '/assets/school-id-cards.webp',
   'Guides', array['schools','id-cards','workflow'], 'iDM Team', 6, true, 'published', now() - interval '3 days'
 ),
 (
@@ -46,7 +46,7 @@ insert into public.idm_posts (slug, title, excerpt, content, cover_image, catego
   'How we print and ship 10,000 event badges in 48 hours',
   'A behind-the-scenes look at the iDM production floor during a large conference run — and the workflow choices that make it possible.',
   E'## The brief\n\nA 10,000-delegate conference, data arriving in batches until the night before.\n\n## Workflow\n\n1. Template locked a week earlier, variable data only.\n2. Batches validated on arrival and queued to multiple printers.\n3. QC scanning per batch instead of per run.\n4. Colour-coded packing by registration desk.\n\n## Lessons\n\nSplit the run, never the template. And print 3% spare blanks for on-site changes.',
-  '/assets/industry-events.webp',
+  '/assets/event-badges.webp',
   'Case Studies', array['events','case-study'], 'iDM Team', 5, false, 'published', now() - interval '40 days'
 )
 on conflict (slug) do update set
