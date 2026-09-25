@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { submitLead } from "@/app/actions/leads";
 import { leadPopup, site } from "@/lib/content";
 import { LogoMark } from "./Navbar";
 
 const STORAGE_KEY = "ivy-lead-popup-dismissed";
 const SHOW_DELAY_MS = 2500;
 
-type Status = "idle" | "sending" | "sent";
+type Status = "idle" | "sending" | "sent" | "error";
 
 const fieldCls =
   "w-full rounded-xl border border-line-soft bg-surface px-4 py-3 text-[14px] text-ink outline-none transition-[border-color,box-shadow] placeholder:text-ash focus:border-brand focus:ring-4 focus:ring-brand/10";
@@ -26,6 +27,7 @@ function Field({ id, label, type = "text", autoComplete }: { id: string; label: 
 export function LeadPopup() {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (window.sessionStorage.getItem(STORAGE_KEY)) return;
@@ -55,16 +57,29 @@ export function LeadPopup() {
     };
   }, [open]);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status !== "idle") return;
+    if (status === "sending" || status === "sent") return;
+    const fd = new FormData(e.currentTarget);
+    const str = (k: string) => String(fd.get(k) ?? "");
     setStatus("sending");
-    // No backend is wired yet: simulate the request so the success state is demonstrable.
-    window.setTimeout(() => {
-      setStatus("sent");
-      window.sessionStorage.setItem(STORAGE_KEY, "1");
-      window.setTimeout(() => setOpen(false), 1800);
-    }, 900);
+    setError(null);
+    const res = await submitLead({
+      name: str("name"),
+      phone: str("phone"),
+      email: str("email"),
+      business: str("business"),
+      source: "lead-popup",
+      pagePath: window.location.pathname,
+    });
+    if (!res.ok) {
+      setStatus("error");
+      setError(res.error);
+      return;
+    }
+    setStatus("sent");
+    window.sessionStorage.setItem(STORAGE_KEY, "1");
+    window.setTimeout(() => setOpen(false), 1800);
   };
 
   if (!open) return null;
@@ -154,7 +169,9 @@ export function LeadPopup() {
               <button type="button" onClick={close} className="block w-full text-center text-[12.5px] text-ash transition-colors hover:text-graphite">
                 {leadPopup.dismiss}
               </button>
-              <p className="text-center text-[11px] text-ash">We never share your details. No spam, ever.</p>
+              <p className={`text-center text-[11px] ${error ? "font-medium text-accent-deep" : "text-ash"}`} role={error ? "alert" : undefined}>
+                {error ?? "We never share your details. No spam, ever."}
+              </p>
             </form>
           )}
         </div>

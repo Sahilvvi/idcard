@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { submitLead } from "@/app/actions/leads";
 import { contact, site } from "@/lib/content";
 import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
-type Status = "idle" | "sending" | "sent";
+type Status = "idle" | "sending" | "sent" | "error";
 
 const fieldCls =
   "w-full rounded-xl border border-line-soft bg-surface px-4 py-3 text-[14px] text-ink outline-none transition-colors placeholder:text-ash focus:border-brand focus:ring-4 focus:ring-brand/10";
@@ -66,16 +67,33 @@ const CONTACT_TILES = (site: { phone: string; phoneHref: string; email: string; 
   },
 ];
 
-export function ContactForm() {
+export function ContactForm({ source = "home-contact" }: { source?: string }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState<string | null>(null);
   const [type, setType] = useState<"printing" | "software">("printing");
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status !== "idle") return;
+    if (status === "sending") return;
+    const fd = new FormData(e.currentTarget);
+    const str = (k: string) => String(fd.get(k) ?? "");
     setStatus("sending");
-    // No backend is wired yet: simulate the request so the success state is demonstrable.
-    window.setTimeout(() => setStatus("sent"), 900);
+    setError(null);
+    const res = await submitLead({
+      name: str("company"),
+      business: str("company"),
+      email: str("email"),
+      phone: str("phone"),
+      interest: [type === "printing" ? "Printing services" : "Software platform", str("product")].filter(Boolean).join(" · "),
+      message: [str("message"), str("city") ? `City: ${str("city")}` : ""].filter(Boolean).join("\n\n"),
+      source,
+      pagePath: window.location.pathname,
+    });
+    if (res.ok) setStatus("sent");
+    else {
+      setStatus("error");
+      setError(res.error);
+    }
   };
 
   return (
@@ -184,7 +202,9 @@ export function ContactForm() {
               <Field id="message" label="Tell us about your requirement (quantities, deadlines, cities)" as="textarea" required />
 
               <div className="flex flex-wrap items-center justify-between gap-4 pt-1">
-                <p className="text-[12px] text-ash">We respond within one business day.</p>
+                <p className={`text-[12px] ${error ? "font-medium text-accent-deep" : "text-ash"}`} role={error ? "alert" : undefined}>
+                  {error ?? "We respond within one business day."}
+                </p>
                 <button
                   type="submit"
                   disabled={status === "sending"}

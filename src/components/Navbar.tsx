@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { nav, site } from "@/lib/content";
 
 /** Brand logo. `size` is the rendered height; the SVG is 256x110. On dark backgrounds it sits on a white chip. */
@@ -26,20 +28,22 @@ export function LogoMark({ size = 36, className = "", chip = false }: { size?: n
 export function Logo({ className = "", tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
   const dark = tone === "dark";
   return (
-    <a href="#top" aria-label={`${site.name} home`} className={`flex items-center gap-2.5 ${className}`}>
+    <Link href="/" aria-label={`${site.name} home`} className={`flex items-center gap-2.5 ${className}`}>
       <LogoMark size={dark ? 30 : 38} chip={dark} />
       <span className={`hidden border-l pl-2.5 text-[10.5px] leading-tight sm:block ${dark ? "border-white/20 text-white/60" : "border-line text-ash"}`}>
         India&apos;s Fastest
         <br />
         ID Card Manufacturer
       </span>
-    </a>
+    </Link>
   );
 }
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -68,15 +72,26 @@ export function Navbar() {
         <div className="container-x flex h-16 items-center justify-between sm:h-20">
           <Logo />
           <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-            {nav.map((n) => (
-              <a
-                key={n.label}
-                href={n.href}
-                className="relative rounded-full px-3.5 py-2 text-[14px] font-medium text-graphite transition-colors hover:bg-brand-tint hover:text-brand"
-              >
-                {n.label}
-              </a>
-            ))}
+            {nav.map((n) => {
+              const active = isActive(n.href);
+              return (
+                <Link
+                  key={n.label}
+                  href={n.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative rounded-full px-3.5 py-2 text-[14px] font-medium transition-colors hover:bg-brand-tint hover:text-brand ${
+                    active ? "text-brand" : "text-graphite"
+                  }`}
+                >
+                  {n.label}
+                  <span
+                    className={`absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-accent transition-transform duration-300 ease-[var(--ease-out-expo)] ${
+                      active ? "scale-x-100" : "scale-x-0"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </nav>
           <div className="flex items-center gap-3">
             <a href={site.phoneHref} className="hidden items-center gap-1.5 text-[13px] font-semibold text-brand xl:flex">
@@ -91,18 +106,18 @@ export function Navbar() {
               </svg>
               {site.phone}
             </a>
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               className="hidden h-10 items-center rounded-full border border-line px-5 text-[13px] font-semibold text-ink transition-colors hover:border-brand hover:text-brand sm:inline-flex"
             >
-              Contact Us
-            </a>
-            <a
-              href="#get-started"
+              Get a Quote
+            </Link>
+            <Link
+              href="/admin/login"
               className="hidden h-10 items-center rounded-full bg-brand px-5 text-[13px] font-semibold text-white shadow-[0_8px_20px_-10px_rgba(29,78,216,0.7)] transition-colors hover:bg-brand-deep sm:inline-flex"
             >
               Login
-            </a>
+            </Link>
             <button
               type="button"
               aria-expanded={open}
@@ -128,14 +143,16 @@ export function Navbar() {
           <nav aria-label="Mobile" className="flex flex-col gap-1">
             {nav.map((n, i) => (
               <div key={n.label} className="border-b border-white/10 py-3">
-                <a
+                <Link
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-baseline gap-4 font-display text-[11vw] font-bold leading-none tracking-[-0.02em] sm:text-5xl"
+                  className={`flex items-baseline gap-4 font-display text-[11vw] font-bold leading-none tracking-[-0.02em] sm:text-5xl ${
+                    isActive(n.href) ? "text-accent" : ""
+                  }`}
                 >
                   <span className="micro w-8 text-accent">0{i + 1}</span>
                   {n.label}
-                </a>
+                </Link>
               </div>
             ))}
           </nav>
@@ -152,13 +169,13 @@ export function Navbar() {
                 {site.email}
               </a>
             </div>
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               onClick={() => setOpen(false)}
               className="inline-flex h-12 w-fit items-center rounded-full bg-accent px-6 text-[13px] font-semibold text-ink"
             >
               Get Started
-            </a>
+            </Link>
           </div>
         </div>
       </div>

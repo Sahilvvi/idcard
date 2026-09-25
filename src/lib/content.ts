@@ -11,12 +11,10 @@ export const site = {
 };
 
 export const nav = [
-  { label: "Home", href: "#top" },
-  { label: "About iDM", href: "#ecosystem" },
-  { label: "Products", href: "#products" },
-  { label: "Software", href: "#software" },
-  { label: "Cities", href: "#story" },
-  { label: "Blogs", href: "#faq" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const hero = {
@@ -418,8 +416,8 @@ export const footer = {
   ],
   legal: [
     { label: "Sitemap", href: "/sitemap.xml" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms and Conditions", href: "#" },
+    { label: "Privacy Policy", href: "/p/privacy-policy" },
+    { label: "Terms and Conditions", href: "/p/terms-of-service" },
   ],
   copyright: "© 2026 iDM - ID Card & Lanyard Printing Services. All rights reserved.",
 };
