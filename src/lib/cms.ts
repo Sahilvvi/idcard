@@ -35,6 +35,13 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
   return (data as Page | null) ?? null;
 }
 
+export async function isSignupOpen(): Promise<boolean> {
+  if (!supabaseConfigured) return false;
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("idm_signup_open");
+  return !error && data === true;
+}
+
 /* ---------- Admin reads (require an idm_profiles row; RLS enforces) ---------- */
 
 export async function getCurrentProfile(): Promise<Profile | null> {
