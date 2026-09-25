@@ -36,10 +36,10 @@ export function CTASection() {
               <p className="lede mx-auto mt-6 max-w-2xl text-white/70">{cta.body}</p>
 
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button href="#contact" variant="primary" className="w-full sm:w-auto">
+                <Button href="/contact" variant="primary" className="w-full sm:w-auto">
                   {cta.primary}
                 </Button>
-                <Button href="#software" variant="outline-light" className="w-full sm:w-auto">
+                <Button href="/#software" variant="outline-light" className="w-full sm:w-auto">
                   {cta.secondary}
                 </Button>
               </div>

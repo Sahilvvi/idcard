@@ -58,3 +58,9 @@ enabled only for fine pointers without `prefers-reduced-motion`.
 Client-side only for now: the submit handler simulates a request and shows the
 success state. Wire `onSubmit` in `src/components/ContactForm.tsx` to an API
 route / CRM when ready.
+
+## CMS / Supabase setup
+
+1. Copy `.env.example` to `.env.local` and fill in your Supabase project URL and publishable (anon) key.
+2. Run `supabase/schema.sql` in the Supabase SQL editor (creates `idm_*` tables, RLS policies and the signup trigger), then optionally `supabase/seed.sql` for sample articles and pages.
+3. Start the app and create an admin account at `/admin/signup`. Accounts created there get an `idm_profiles` row and can manage articles (`/admin/blog`), pages (`/admin/pages`) and leads (`/admin/leads`).

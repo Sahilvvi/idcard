@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { footer, nav, site } from "@/lib/content";
 import { LogoMark } from "./Navbar";
 
@@ -41,9 +42,9 @@ export function Footer() {
         {/* Top row: brand + newsletter-like CTA */}
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div>
-            <a href="#top" className="inline-flex items-center gap-3">
+            <Link href="/" className="inline-flex items-center gap-3">
               <LogoMark size={36} chip />
-            </a>
+            </Link>
             <p className="mt-5 max-w-md text-[14.5px] leading-relaxed text-white/65">{footer.blurb}</p>
             <ul className="mt-6 flex flex-wrap gap-2.5">
               {footer.socials.map((s) => (
@@ -104,10 +105,10 @@ export function Footer() {
                 <ul className="mt-4 space-y-2.5">
                   {col.links.map((l) => (
                     <li key={l}>
-                      <a href="#products" className="group inline-flex items-center gap-1.5 text-[13.5px] text-white/60 transition-colors hover:text-white">
+                      <Link href="/#products" className="group inline-flex items-center gap-1.5 text-[13.5px] text-white/60 transition-colors hover:text-white">
                         <span className="h-px w-0 bg-accent transition-all duration-300 group-hover:w-3" />
                         {l}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
