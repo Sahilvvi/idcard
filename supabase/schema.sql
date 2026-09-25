@@ -23,22 +23,28 @@ returns boolean language sql stable security definer set search_path = public as
   select exists (select 1 from public.idm_profiles where id = auth.uid());
 $$;
 
--- Auto-create a profile for users who sign up through the iDM admin (metadata app = 'idm').
+-- Create the owner profile for the first iDM admin signup (metadata app = 'idm'); later signups are rejected.
 create or replace function public.idm_handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
   if coalesce(new.raw_user_meta_data ->> 'app', '') = 'idm' then
+    if exists (select 1 from public.idm_profiles) then
+      raise exception 'Admin signup is closed. Ask the existing owner to add you.'
+        using errcode = 'P0001';
+    end if;
     insert into public.idm_profiles (id, email, full_name, role)
-    values (
-      new.id,
-      new.email,
-      new.raw_user_meta_data ->> 'full_name',
-      case when exists (select 1 from public.idm_profiles) then 'admin' else 'owner' end
-    )
+    values (new.id, new.email, new.raw_user_meta_data ->> 'full_name', 'owner')
     on conflict (id) do nothing;
   end if;
   return new;
 end $$;
+
+-- Signup is only open until the first admin exists.
+create or replace function public.idm_signup_open()
+returns boolean language sql stable security definer set search_path = public as $$
+  select not exists (select 1 from public.idm_profiles);
+$$;
+grant execute on function public.idm_signup_open() to anon, authenticated;
 
 drop trigger if exists idm_on_auth_user_created on auth.users;
 create trigger idm_on_auth_user_created

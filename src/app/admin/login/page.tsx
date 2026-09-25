@@ -3,21 +3,28 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { AuthForm } from "@/components/admin/AuthForm";
 import { AuthShell } from "@/components/admin/AuthShell";
+import { isSignupOpen } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Sign in" };
+export const dynamic = "force-dynamic";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const signupOpen = await isSignupOpen();
   return (
     <AuthShell
       title="Welcome back"
       sub="Sign in to manage articles, pages and leads."
       footer={
-        <>
-          New to the console?{" "}
-          <Link href="/admin/signup" className="font-semibold text-brand hover:underline">
-            Create an account
-          </Link>
-        </>
+        signupOpen ? (
+          <>
+            Setting up the console?{" "}
+            <Link href="/admin/signup" className="font-semibold text-brand hover:underline">
+              Create the owner account
+            </Link>
+          </>
+        ) : (
+          <>Access is by invitation from the site owner.</>
+        )
       }
     >
       <Suspense>

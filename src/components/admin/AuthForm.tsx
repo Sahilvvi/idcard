@@ -39,7 +39,11 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
         options: { data: { app: "idm", full_name: fullName } },
       });
       if (error) {
-        setError(error.message);
+        setError(
+          /signup is closed/i.test(error.message)
+            ? "Admin signup is closed — an admin account already exists. Ask the owner for access."
+            : error.message,
+        );
         setPending(false);
         return;
       }
