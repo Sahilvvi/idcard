@@ -245,7 +245,7 @@ export default function AboutPage() {
                     <p className="micro text-accent">Headquarters</p>
                     <h3 className="mt-3 font-display text-3xl font-bold tracking-tight">Siliguri, West Bengal</h3>
                     <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/70">
-                      The gateway to North-East India. Our plant and warehouse sit on {site.address[0].replace(",", "")}, with dispatch links to Kolkata,
+                      The gateway to North-East India. Our plant and warehouse sit in Champasari, Siliguri, with dispatch links to Kolkata,
                       Guwahati and the rest of the country within 24 hours.
                     </p>
                     <address className="mt-6 text-[14.5px] not-italic leading-relaxed text-white/80">
