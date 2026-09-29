@@ -1,12 +1,12 @@
 export const site = {
   name: "iDM",
   tagline: "India's Fastest ID Card Printing & B2B Printing Ecosystem",
-  phone: "+91 90000 00000",
-  phoneHref: "tel:+919000000000",
+  phone: "+91 94744 18325",
+  phoneHref: "tel:+919474418325",
   email: "hello@example.com",
-  address: ["Sevoke Road,", "Siliguri, West Bengal,", "India 734001"],
+  address: ["iDM, Kolabari, Devidanga,", "Champasari, Siliguri,", "West Bengal 734003"],
   location: "Siliguri, West Bengal",
-  mapQuery: "Siliguri, West Bengal, India",
+  mapQuery: "Kolabari, Devidanga, Champasari, Siliguri, West Bengal 734003",
   url: "https://example.com",
 };
 
@@ -348,7 +348,7 @@ export const faqs = [
   },
   {
     q: "What if I have specific design requirements or need assistance with my order?",
-    a: "Our team assists with artwork, data formatting and product selection. Describe your requirement in the inquiry form or call +91 90000 00000 and we will help you set up the order.",
+    a: "Our team assists with artwork, data formatting and product selection. Describe your requirement in the inquiry form or call +91 94744 18325 and we will help you set up the order.",
   },
 ];
 
