@@ -23,16 +23,16 @@ export const hero = {
   subheading: "A Complete B2B Printing Ecosystem for Schools, Corporates & Vendors",
   body:
     "iDM is a technology-driven B2B printing platform that simplifies bulk printing across India. From quality-checked raw materials and smart software to high-volume ID card printing, we help you manage printing at scale—transparently and efficiently.",
-  primaryCta: "Get Started",
+  primaryCta: "Order Now",
   secondaryCta: "Explore Solutions",
   caption: "Quality Control & Fulfilment Network",
   asset: "/assets/hero-id-cards.webp",
-  assetAlt: "iDM ID cards and lanyards laid out on a table",
+  assetAlt: "Bulk batch of printed iDM ID cards with branded blue lanyards, packed in cartons for delivery",
 };
 
 export const trustMetrics = [
-  { value: 500, suffix: "+", label: "Partners" },
-  { value: 50, suffix: "+", label: "Cities" },
+  { value: 50, suffix: "+", label: "Partners" },
+  { value: 25, suffix: "+", label: "Cities" },
   { value: 99, suffix: "%", label: "On-time" },
   { value: 1, suffix: "M+", label: "Cards printed" },
 ];
@@ -68,7 +68,7 @@ export const ecosystem = {
         "Fast & reliable delivery timelines",
       ],
       asset: "/assets/raw-materials.webp",
-      assetAlt: "PVC sheets, clips and lanyard rolls stacked in an iDM warehouse",
+      assetAlt: "PVC and Teslin sheets, lanyard rolls, card holders, hooks and badge reels in an iDM stockroom",
       tone: "ivory",
     },
     {
@@ -103,7 +103,7 @@ export const ecosystem = {
         "Order-level tracking & accountability",
       ],
       asset: "/assets/printing-production.webp",
-      assetAlt: "ID card printers and packed dispatch cartons on a production floor",
+      assetAlt: "Finished iDM ID cards with QR codes and branded lanyards, packaged for delivery",
       tone: "purple",
     },
   ],
@@ -115,16 +115,16 @@ export const products = {
   title: ["Unlimited Printing Options.", "One Trusted Platform."],
   sub: "From business essentials to custom marketing materials, access India's largest printing catalogue with guaranteed quality and fast turnaround.",
   items: [
-    { id: "holders", name: "ID Card Holders", spec: "Clear · Rigid · Flexible", asset: "/assets/products/id-card-holders.webp" },
-    { id: "sheets", name: "ID Card Sheets", spec: "PVC · Inkjet · Laser", asset: "/assets/products/id-card-sheets.webp" },
-    { id: "lanyards", name: "Lanyards", spec: "Satin · Tube · Multicolour", asset: "/assets/products/lanyards.webp" },
-    { id: "smart", name: "Smart Cards", spec: "Chip · Contactless", asset: "/assets/products/smart-cards.webp" },
-    { id: "accessories", name: "ID Card Accessories", spec: "Hooks · Seals · Rings", asset: "/assets/products/id-card-accessories.webp" },
-    { id: "metal", name: "Metal & Plastic", spec: "Keychains · Badges", asset: "/assets/products/metal-plastic.webp" },
-    { id: "pvc", name: "PVC & NTR Sheets", spec: "0.76mm · A4 · A3", asset: "/assets/products/pvc-ntr-sheets.webp" },
-    { id: "custom", name: "Custom Printed", spec: "Bulk · Branded", asset: "/assets/products/custom-printed.webp" },
-    { id: "rfid", name: "RFID / NFC", spec: "125kHz · 13.56MHz", asset: "/assets/products/rfid-nfc.webp" },
-    { id: "clips", name: "Clips & Reels", spec: "Yo-yo · Bulldog · Strap", asset: "/assets/products/clips-reels.webp" },
+    { id: "holders", name: "ID Card Holders", spec: "Rigid · Soft PVC · Badge clip", asset: "/assets/products/id-card-holders.webp", requirement: "Bulk Raw Materials" },
+    { id: "sheets", name: "ID Card Sheets", spec: "PVC · Inkjet · Laser", asset: "/assets/products/id-card-sheets.webp", requirement: "Bulk Raw Materials" },
+    { id: "lanyards", name: "Lanyards", spec: "Satin · Sublimation · Multi-width", asset: "/assets/products/lanyards.webp", requirement: "Custom Lanyards" },
+    { id: "smart", name: "Smart Cards", spec: "Chip · Contactless", asset: "/assets/products/smart-cards.webp", requirement: "Finished ID Cards" },
+    { id: "accessories", name: "ID Card Accessories", spec: "Dog · Fish · England hooks", asset: "/assets/products/id-card-accessories.webp", requirement: "Bulk Raw Materials" },
+    { id: "metal", name: "Metal & Plastic", spec: "Keychains · Badges", asset: "/assets/products/metal-plastic.webp", requirement: "Finished ID Cards" },
+    { id: "pvc", name: "PVC & NTR Sheets", spec: "0.76mm · A4 · A3", asset: "/assets/products/pvc-ntr-sheets.webp", requirement: "Bulk Raw Materials" },
+    { id: "custom", name: "Custom Printed", spec: "Bulk · Branded", asset: "/assets/products/custom-printed.webp", requirement: "Finished ID Cards" },
+    { id: "rfid", name: "RFID / NFC", spec: "125kHz · 13.56MHz", asset: "/assets/products/rfid-nfc.webp", requirement: "Finished ID Cards" },
+    { id: "clips", name: "Clips & Reels", spec: "Yo-yo · Bulldog · Strap", asset: "/assets/products/clips-reels.webp", requirement: "Bulk Raw Materials" },
   ],
 };
 
@@ -147,7 +147,7 @@ export const partnershipPaths = {
       ],
       cta: "Start Your Business",
       asset: "/assets/partner-workspace.webp",
-      assetAlt: "Printing partner reviewing orders in a small print shop",
+      assetAlt: "iDM representative shaking hands with a print vendor over ID card and lanyard samples",
     },
     {
       id: "materials",
@@ -164,23 +164,24 @@ export const partnershipPaths = {
       ],
       cta: "Get Raw Materials",
       asset: "/assets/warehouse.webp",
-      assetAlt: "Warehouse racks stacked with PVC sheets and consumables",
+      assetAlt: "Vendor checking bulk PVC sheets, lanyard reels and clips in an iDM warehouse",
     },
     {
       id: "production",
       nav: "Production Partner",
+      badge: "#1 in North-East India",
       title: "Need a Production Partner?",
       body:
-        "Join iDM's nationwide production network and receive consistent, high-volume orders with standardized workflows and clear quality benchmarks.",
+        "iDM is North-East India's #1 ID card production partner. From our Siliguri hub we print and deliver bulk orders across Assam, Sikkim, Meghalaya, Mizoram and the rest of the region, on standardized workflows with clear quality benchmarks.",
       points: [
-        "Steady inflow of bulk printing orders",
+        "Hubs in Siliguri & Guwahati",
         "Standardized production & QC processes",
         "Centralized coordination & tracking",
         "Long-term partnership opportunities",
       ],
       cta: "Partner with Us",
       asset: "/assets/production-floor.webp",
-      assetAlt: "Industrial card printing production floor",
+      assetAlt: "ID card printing, lamination and punching machines running a batch",
     },
   ],
 };
@@ -204,6 +205,31 @@ export const leadPopup = {
   dismiss: "Maybe later",
   success: "Thanks! Our team will reach out shortly.",
   perks: ["Factory-direct pricing", "Free sample on bulk orders", "Pan-India delivery"],
+};
+
+export const orderModal = {
+  eyebrow: "Order Now",
+  title: "Place a bulk order in 60 seconds",
+  body: "Tell us what you need. Our team will confirm pricing, samples and dispatch date, usually within one business day.",
+  requirements: ["Finished ID Cards", "Bulk Raw Materials", "Custom Lanyards"],
+  quantities: ["50–500", "500–5,000", "5,000+"],
+  submit: "Send Order Request",
+  success: "Order request received!",
+};
+
+export const northEast = {
+  label: "North-East Coverage",
+  title: ["#1 Production Partner", "in North-East India"],
+  sub: "From our Siliguri hub, the gateway to the North-East, iDM prints, packs and delivers bulk ID card orders to every state in the region.",
+  hubs: [
+    { name: "Siliguri", note: "HQ & production hub" },
+    { name: "Guwahati", note: "Regional dispatch hub" },
+  ],
+  stats: [
+    { value: "#1", label: "Production partner in the North-East" },
+    { value: "2", label: "Hubs · Siliguri & Guwahati" },
+    { value: "24Hrs", label: "Dispatch on ready artwork" },
+  ],
 };
 
 export const story = {
@@ -249,28 +275,28 @@ export const industries = {
       ],
       cta: "Order for Your Institution",
       asset: "/assets/school-id-cards.webp",
-      assetAlt: "Students wearing lanyard ID cards on a school campus",
+      assetAlt: "Bulk student ID cards with school lanyards laid out on a desk",
     },
     {
       id: "events",
       name: "Event Management",
       kicker: "Conferences & Expos",
-      title: "Badge & Pass Printing for Events",
+      title: "Delegate Passes, Visitor Badges & VIP Lanyards",
       body:
-        "High-volume event badges, delegate passes and branded lanyards produced through the same standardized iDM workflow—fast turnaround with order-level tracking.",
+        "Delegate passes, laminated visitor badges and VIP / backstage lanyards for conferences, expos and concerts, produced through the standardized iDM workflow with fast turnaround and order-level tracking.",
       stats: [
         { value: "24Hrs", label: "Dispatch" },
-        { value: "50+", label: "Cities" },
+        { value: "25+", label: "Cities" },
       ],
       services: [
-        { name: "Event ID Cards", desc: "Delegate, speaker and crew passes." },
-        { name: "Visitor ID Cards", desc: "Temporary passes for expo access." },
+        { name: "Delegate Passes", desc: "Delegate, speaker and crew passes." },
+        { name: "Laminated Visitor Badges", desc: "Durable passes for expo access." },
+        { name: "VIP & Backstage Lanyards", desc: "Colour-coded access lanyards." },
         { name: "Custom Lanyards", desc: "Branded lanyards in event colours." },
         { name: "ID Card Holders", desc: "Clear and rigid holders for badges." },
-        { name: "Clips & Reels", desc: "Retractable reels and clips." },
         { name: "Bulk Sets", desc: "Card + lanyard + holder kits." },
       ],
-      provide: ["Event ID Cards", "Branded Lanyards", "Holders & Reels", "Complete Kits"],
+      provide: ["Delegate Passes", "Branded Lanyards", "Holders & Reels", "Complete Kits"],
       advantages: [
         "24 hour dispatch on ready artwork",
         "Centralized coordination & tracking",
@@ -279,25 +305,25 @@ export const industries = {
       ],
       cta: "Plan Your Event Passes",
       asset: "/assets/event-badges.webp",
-      assetAlt: "Conference delegates wearing printed badges on lanyards",
+      assetAlt: "Delegate passes, visitor badges and VIP lanyards at an event registration desk",
     },
     {
       id: "corporate",
       name: "Corporate Sector",
       kicker: "Enterprises & Org.",
-      title: "Employee ID & Access Cards for Enterprises",
+      title: "Employee ID & Access Cards for Banking & IT",
       body:
-        "Employee ID cards, visitor passes and smart access cards for offices and organisations, backed by secure data handling and multi-location ordering.",
+        "Employee ID cards with access chips and magnetic stripes, executive clips and premium lanyards for banks, IT companies and offices, backed by secure data handling and multi-location ordering.",
       stats: [
         { value: "100K+", label: "Happy Customers" },
         { value: "99%", label: "On-time" },
       ],
       services: [
-        { name: "Employee ID Cards", desc: "PVC and smart cards with access control features." },
+        { name: "Chip & Magstripe Cards", desc: "Employee cards with access chips or magnetic stripes." },
         { name: "Visitor ID Cards", desc: "Temporary visitor passes for security management." },
         { name: "Smart Cards", desc: "RFID / NFC cards for access systems." },
         { name: "Custom Lanyards", desc: "Branded lanyards with company logo." },
-        { name: "ID Card Holders", desc: "Rigid and flexible holders." },
+        { name: "Executive Clips & Reels", desc: "Metal-edge holders and badge reels." },
         { name: "Bulk Sets", desc: "Complete onboarding kits." },
       ],
       provide: ["PVC & Smart ID Cards", "RFID / NFC Cards", "Branded Lanyards", "Complete Bulk Sets"],
@@ -309,7 +335,7 @@ export const industries = {
       ],
       cta: "Order for Your Organisation",
       asset: "/assets/corporate-id-cards.webp",
-      assetAlt: "Corporate employees wearing ID cards in an office lobby",
+      assetAlt: "Corporate chip access ID cards in executive holders with badge reels and lanyards",
     },
   ],
 };

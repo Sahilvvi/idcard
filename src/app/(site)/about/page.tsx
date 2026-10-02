@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
 import { CTASection } from "@/components/CTASection";
-import { PartnerMarquee } from "@/components/PartnerMarquee";
+import { ProcessFlow } from "@/components/ProcessFlow";
 import { AssetImage } from "@/components/ui/AssetImage";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 
 const stats = [
   { value: "2019", label: "Founded in Siliguri" },
-  { value: "50+", label: "Cities served" },
-  { value: "500+", label: "Partner vendors & institutions" },
+  { value: "25+", label: "Cities served" },
+  { value: "50+", label: "Partner vendors & institutions" },
   { value: "1M+", label: "Cards printed & QC-scanned" },
 ];
 
@@ -48,15 +48,8 @@ const milestones = [
   { year: "2019", title: "First plant in Siliguri", body: "Started as a single-line PVC card unit serving schools across North Bengal." },
   { year: "2020", title: "Order software goes live", body: "Built our own upload-and-validate tool after seeing 30% of reprints came from bad data." },
   { year: "2021", title: "Raw material supply", body: "Opened the first partner warehouse so vendors could buy quality-checked sheets at one price." },
-  { year: "2023", title: "Pan-India partner network", body: "Crossed 300 production and channel partners; launched the partner mobile app." },
-  { year: "2025", title: "1 million cards", body: "One million QC-scanned cards delivered across 50+ cities — and counting." },
-];
-
-const process = [
-  { step: "01", title: "Source", body: "Quality-checked PVC, NTR, lanyard rolls and accessories from audited suppliers.", asset: "/assets/raw-materials.webp" },
-  { step: "02", title: "Validate", body: "Uploaded data and photos are checked automatically before a single card is printed.", asset: "/assets/software-platform.webp" },
-  { step: "03", title: "Produce", body: "Scheduled printing across partner plants with standard machines and consumables.", asset: "/assets/production-floor.webp" },
-  { step: "04", title: "Deliver", body: "Scanned, packed by batch and tracked to your door with a live status link.", asset: "/assets/warehouse.webp" },
+  { year: "2023", title: "Pan-India partner network", body: "Grew a network of production and channel partners; launched the partner mobile app." },
+  { year: "2025", title: "1 million cards", body: "One million QC-scanned cards delivered across 25+ cities — and counting." },
 ];
 
 const team = [
@@ -159,36 +152,7 @@ export default function AboutPage() {
       </section>
 
       {/* 4. Process */}
-      <section className="bg-surface py-16 sm:py-24">
-        <div className="container-x">
-          <SectionHeader label="How iDM works" title={["Material → Data → Production → Delivery,", "under one roof"]} accentLine={1} sub="Every order moves through the same four stages, tracked in one dashboard." />
-          <ol className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {process.map((p, i) => (
-              <Reveal key={p.step} delay={i * 100} y={28}>
-                <li className="card group relative h-full overflow-hidden">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <AssetImage src={p.asset} alt={p.title} className="transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105" sizes="(min-width:1024px) 25vw, 50vw" />
-                    <span className="absolute left-4 top-4 grid size-10 place-items-center rounded-xl bg-white/90 font-display text-[13px] font-bold text-brand shadow-sm backdrop-blur">
-                      {p.step}
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-display text-[18px] font-semibold text-ink">{p.title}</h3>
-                    <p className="mt-2 text-[14px] leading-relaxed text-graphite">{p.body}</p>
-                  </div>
-                  {i < process.length - 1 && (
-                    <span aria-hidden className="absolute -right-3 top-1/2 z-10 hidden size-6 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-brand lg:grid">
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  )}
-                </li>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <ProcessFlow />
 
       {/* 5. Timeline */}
       <section className="bg-paper py-16 sm:py-24">
@@ -277,7 +241,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <PartnerMarquee />
       <CTASection />
     </main>
   );

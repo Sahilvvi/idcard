@@ -1,6 +1,6 @@
 import { products } from "@/lib/content";
 import { AssetImage } from "./ui/AssetImage";
-import { Button } from "./ui/Button";
+import { OrderButton } from "./OrderModal";
 import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
@@ -12,18 +12,26 @@ function ProductCard({ item, index }: { item: (typeof products.items)[number]; i
           <div className="h-full w-full transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.08]">
             <AssetImage src={item.asset} alt={`${item.name} — product photograph`} tone="dark" caption="none" />
           </div>
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/10 to-transparent" />
           <span className="micro absolute left-3 top-3 rounded-full bg-white/10 px-2.5 py-1 !text-[10px] text-white/80 backdrop-blur-sm">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span className="absolute right-3 top-3 grid size-9 translate-y-2 place-items-center rounded-full bg-accent text-ink opacity-0 shadow-lg transition-[opacity,transform] duration-400 group-hover:translate-y-0 group-hover:opacity-100">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-              <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-          <div className="absolute inset-x-0 bottom-0 p-4">
-            <h3 className="font-display text-[17px] font-semibold text-white">{item.name}</h3>
-            <p className="micro mt-1 text-white/60">{item.spec}</p>
+          <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
+            <div className="min-w-0">
+              <h3 className="font-display text-[17px] font-semibold text-white">{item.name}</h3>
+              <p className="micro mt-1 truncate text-white/60">{item.spec}</p>
+            </div>
+            <OrderButton
+              product={item.name}
+              requirement={item.requirement}
+              aria-label={`Inquire or order ${item.name}`}
+              className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-brand px-3.5 text-[12px] font-semibold text-white shadow-lg transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-brand-deep"
+            >
+              Order
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </OrderButton>
           </div>
         </div>
       </article>
@@ -70,10 +78,13 @@ export function ProductCarousel() {
 
       <Reveal delay={120}>
         <div className="container-x relative mt-12 flex flex-col items-center gap-4 text-center">
-          <p className="text-[14px] text-white/60">Hover any card to pause · {items.length} product categories · Custom requirements welcome</p>
-          <Button href="#contact" variant="primary">
-            Request the full catalogue
-          </Button>
+          <p className="text-[14px] text-white/60">Hover any card to pause · Tap Order for an instant quote · Custom requirements welcome</p>
+          <OrderButton className="group inline-flex h-12 items-center gap-2 rounded-full bg-accent px-6 text-[14px] font-semibold text-ink shadow-[0_10px_24px_-10px_rgba(245,158,11,0.6)] transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-accent-deep">
+            Order Now
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden className="transition-transform group-hover:translate-x-1">
+              <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </OrderButton>
         </div>
       </Reveal>
     </section>

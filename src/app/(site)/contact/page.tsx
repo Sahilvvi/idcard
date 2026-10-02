@@ -35,7 +35,7 @@ const channels = [
   },
   {
     label: "Visit",
-    value: site.location,
+    value: "Siliguri HQ",
     href: `https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery)}`,
     hint: site.address.join(" "),
     icon: "M12 21s7-6.3 7-11.5A7 7 0 0 0 5 9.5C5 14.7 12 21 12 21Zm0-9a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z",
@@ -52,7 +52,7 @@ const steps = [
 const reasons = [
   { value: "< 24h", label: "First response" },
   { value: "3–4 days", label: "Typical school run" },
-  { value: "50+", label: "Cities delivered" },
+  { value: "25+", label: "Cities delivered" },
   { value: "100%", label: "QC-scanned cards" },
 ];
 
@@ -77,7 +77,7 @@ export default function ContactPage() {
               href={c.href}
               target={c.href.startsWith("http") ? "_blank" : undefined}
               rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="card group flex items-start gap-4 p-5 text-left transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-[0_24px_48px_-24px_rgba(29,78,216,0.35)] animate-[fade-up_0.7s_var(--ease-out-expo)_both]"
+              className="card group flex min-w-0 items-start gap-4 p-5 text-left transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:shadow-[0_24px_48px_-24px_rgba(29,78,216,0.35)] animate-[fade-up_0.7s_var(--ease-out-expo)_both]"
               style={{ animationDelay: `${0.3 + i * 0.08}s` }}
             >
               <span className="icon-badge-brand transition-transform duration-500 group-hover:scale-110">
@@ -87,7 +87,16 @@ export default function ContactPage() {
               </span>
               <span className="min-w-0">
                 <span className="micro block text-ash">{c.label}</span>
-                <span className="mt-1 block truncate font-display text-[15px] font-semibold text-ink group-hover:text-brand">{c.value}</span>
+                <span className="mt-1 block break-words font-display text-[15px] leading-snug font-semibold text-ink group-hover:text-brand">
+                  {c.value.includes("@") ? (
+                    <>
+                      {c.value.split("@")[0]}@<wbr />
+                      {c.value.split("@")[1]}
+                    </>
+                  ) : (
+                    c.value
+                  )}
+                </span>
                 <span className="mt-1 block text-[12px] leading-snug text-graphite">{c.hint}</span>
               </span>
             </a>

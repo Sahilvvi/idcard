@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/lib/content";
+import { OrderButton } from "./OrderModal";
 
 /** Brand logo. `size` is the rendered height; the SVG is 256x110. On dark backgrounds it sits on a white chip. */
 export function LogoMark({ size = 36, className = "", chip = false }: { size?: number; className?: string; chip?: boolean }) {
@@ -107,17 +108,17 @@ export function Navbar() {
               {site.phone}
             </a>
             <Link
-              href="/contact"
-              className="hidden h-10 items-center rounded-full border border-line px-5 text-[13px] font-semibold text-ink transition-colors hover:border-brand hover:text-brand sm:inline-flex"
-            >
-              Get a Quote
-            </Link>
-            <Link
               href="/admin/login"
-              className="hidden h-10 items-center rounded-full bg-brand px-5 text-[13px] font-semibold text-white shadow-[0_8px_20px_-10px_rgba(29,78,216,0.7)] transition-colors hover:bg-brand-deep sm:inline-flex"
+              className="hidden h-10 items-center rounded-full border border-line px-5 text-[13px] font-semibold text-ink transition-colors hover:border-brand hover:text-brand md:inline-flex"
             >
               Login
             </Link>
+            <OrderButton className="inline-flex h-10 items-center gap-1.5 rounded-full bg-brand px-4 text-[13px] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(29,78,216,0.8)] ring-2 ring-brand/15 transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-brand-deep sm:px-5">
+              Order Now
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </OrderButton>
             <button
               type="button"
               aria-expanded={open}
@@ -169,13 +170,11 @@ export function Navbar() {
                 {site.email}
               </a>
             </div>
-            <Link
-              href="/contact"
-              onClick={() => setOpen(false)}
-              className="inline-flex h-12 w-fit items-center rounded-full bg-accent px-6 text-[13px] font-semibold text-ink"
-            >
-              Get Started
-            </Link>
+            <div onClick={() => setOpen(false)}>
+              <OrderButton className="inline-flex h-12 w-fit items-center rounded-full bg-brand px-6 text-[13px] font-semibold text-white">
+                Order Now
+              </OrderButton>
+            </div>
           </div>
         </div>
       </div>

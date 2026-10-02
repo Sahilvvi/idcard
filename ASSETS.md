@@ -1,22 +1,22 @@
 # Asset manifest
 
-No stock or AI-generated imagery is shipped. Every image slot references a
-descriptive path under `public/assets/`. Until the real file exists the UI
-renders a labelled "Photography · pending" proof-sheet placeholder showing the
-filename and the intended shot (`src/components/ui/AssetImage.tsx`), so missing
-assets are obvious and never silently blank.
+The hero, ecosystem, partnership, industry and product images under
+`public/assets/` are photorealistic AI renders (Nano Banana Pro via Runway)
+that use the real iDM logo from `public/logo.svg` as a brand reference.
+Replace any of them with real product photography by dropping a file with the
+same name in place (WebP, sRGB, max 2400px on the long edge) — no code change
+needed. If a file is missing, the UI renders a labelled "Photography · pending"
+placeholder (`src/components/ui/AssetImage.tsx`).
 
-Drop the files below into `public/assets/` (WebP, sRGB, max 2400px on the long
-edge, ≤ 350 KB each) and they appear automatically — no code change needed.
+The "How iDM works" flow (`ProcessFlow.tsx`) and the North-East coverage map
+(`NorthEastCoverage.tsx`) are inline animated SVG, not image files.
 
 ## Hero / OG
 
 | Path | Used in | Intended content |
 | --- | --- | --- |
+| `assets/hero-id-cards.webp` (21:9) | `Hero.tsx` | Bulk batch of printed iDM ID cards with branded lanyards in cartons |
 | `assets/og-idcard.webp` (1200×630) | `layout.tsx` Open Graph / Twitter | Printed IDCARD ID cards with lanyard on ivory background, wordmark bottom-left |
-
-The hero itself is rendered procedurally (Three.js cards with canvas textures;
-CSS fallback), so no hero photo is required.
 
 ## Ecosystem (pinned panels)
 

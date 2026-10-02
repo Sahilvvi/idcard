@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { industries } from "@/lib/content";
 import { AssetImage } from "./ui/AssetImage";
-import { Button } from "./ui/Button";
+import { OrderButton } from "./OrderModal";
 import { Reveal } from "./ui/Reveal";
 import { SectionHeader } from "./ui/SectionHeader";
 
@@ -168,9 +168,15 @@ export function IndustrySolutions() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button href="#contact" variant="brand">
+              <OrderButton
+                requirement="Finished ID Cards"
+                className="group inline-flex h-11 items-center gap-2 rounded-full bg-brand px-6 text-[14px] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(29,78,216,0.55)] transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-brand-deep sm:h-12"
+              >
                 {tab.cta}
-              </Button>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden className="transition-transform group-hover:translate-x-1">
+                  <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </OrderButton>
               <button
                 type="button"
                 onClick={() => setActive((active + 1) % industries.tabs.length)}

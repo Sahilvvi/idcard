@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { hero, trustMetrics } from "@/lib/content";
 import { Button } from "./ui/Button";
 import { AssetImage } from "./ui/AssetImage";
+import { OrderButton } from "./OrderModal";
 
 const ROTATE = ["Schools", "Corporates", "Events", "Print Vendors"];
 
@@ -70,9 +71,12 @@ export function Hero() {
         <p className="lede mt-6 max-w-2xl animate-[fade-up_0.7s_var(--ease-out-expo)_0.16s_both]">{hero.body}</p>
 
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3 animate-[fade-up_0.7s_var(--ease-out-expo)_0.24s_both]">
-          <Button href="#contact" variant="brand">
+          <OrderButton className="group inline-flex h-11 items-center gap-2 rounded-full bg-brand px-6 text-[14px] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(29,78,216,0.55)] transition-[background-color,transform] duration-300 hover:-translate-y-0.5 hover:bg-brand-deep sm:h-12">
             {hero.primaryCta}
-          </Button>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+              <path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </OrderButton>
           <Button href="#ecosystem" variant="ghost" arrow={false}>
             {hero.secondaryCta}
           </Button>
@@ -127,7 +131,7 @@ export function Hero() {
               </svg>
             </span>
             <span>
-              <span className="block text-[13px] font-semibold text-ink">50+ Cities</span>
+              <span className="block text-[13px] font-semibold text-ink">25+ Cities</span>
               <span className="block text-[11px] text-ash">Pan-India delivery</span>
             </span>
           </div>

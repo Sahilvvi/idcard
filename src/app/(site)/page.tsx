@@ -4,7 +4,7 @@ import { EcosystemSection } from "@/components/EcosystemSection";
 import { FAQ } from "@/components/FAQ";
 import { Hero } from "@/components/Hero";
 import { IndustrySolutions } from "@/components/IndustrySolutions";
-import { PartnerMarquee } from "@/components/PartnerMarquee";
+import { NorthEastCoverage } from "@/components/NorthEastCoverage";
 import { PartnershipPaths } from "@/components/PartnershipPaths";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { ProofStats } from "@/components/ProofStats";
@@ -15,10 +15,10 @@ export default function Home() {
     <main id="top">
       <Hero />
       <TrustMetrics />
-      <PartnerMarquee />
       <EcosystemSection />
       <ProductCarousel />
       <PartnershipPaths />
+      <NorthEastCoverage />
       <ProofStats />
       <IndustrySolutions />
       <CTASection />
