@@ -75,3 +75,11 @@ insert into public.idm_pages (slug, title, description, eyebrow, hero_title, her
 on conflict (slug) do update set
   title = excluded.title, description = excluded.description, eyebrow = excluded.eyebrow, hero_title = excluded.hero_title,
   hero_sub = excluded.hero_sub, content = excluded.content, cta_label = excluded.cta_label, cta_href = excluded.cta_href;
+
+-- Sample video testimonials (replace the video/poster URLs with real client footage from /admin/testimonials).
+insert into public.idm_testimonials (person_name, person_role, company, video_url, poster_url, quote, sort_order, status) values
+  ('Ananya Sharma', 'Principal', 'Greenfield Public School, Siliguri', 'https://www.youtube.com/watch?v=ysz5S6PUM-U', null, 'Three thousand student cards delivered before the first bell, zero reprints.', 1, 'published'),
+  ('Rohit Agarwal', 'Operations Head', 'Northline Events', 'https://www.youtube.com/watch?v=aqz-KE-bpKQ', null, 'Badges for a 5,000-person expo turned around in 48 hours.', 2, 'published'),
+  ('Priya Dutta', 'Founder', 'PrintHub Guwahati', 'https://www.youtube.com/watch?v=ScMzIvxBSi4', null, 'The iDM software cut our order handling time in half.', 3, 'published'),
+  ('Vikram Rao', 'HR Manager', 'Teesta Infra Pvt. Ltd.', 'https://www.youtube.com/watch?v=jNQXAC9IVRw', null, 'RFID access cards for 1,200 staff, all encoded and ready on day one.', 4, 'published')
+on conflict do nothing;

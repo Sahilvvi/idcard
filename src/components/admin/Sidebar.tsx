@@ -10,6 +10,7 @@ const items = [
   { label: "Overview", href: "/admin", icon: "M4 13h6V4H4v9Zm10 7h6v-9h-6v9ZM4 20h6v-5H4v5Zm10-9h6V4h-6v7Z" },
   { label: "Blog", href: "/admin/blog", icon: "M5 4h11l3 3v13H5V4Zm3 6h8M8 14h8M8 18h5" },
   { label: "Pages", href: "/admin/pages", icon: "M6 3h9l4 4v14H6V3Zm9 0v4h4M9 12h6M9 16h6" },
+  { label: "Testimonials", href: "/admin/testimonials", icon: "M4 6h16v12H4V6Zm6 3v6l5-3-5-3Z" },
   { label: "Leads", href: "/admin/leads", icon: "M4 6h16v12H4V6Zm0 1 8 6 8-6" },
 ];
 
