@@ -147,6 +147,59 @@ export async function deletePage(id: string): Promise<ActionResult> {
   return { ok: true };
 }
 
+/* ---------------- Testimonials ---------------- */
+
+export async function saveTestimonial(formData: FormData): Promise<ActionResult> {
+  const { supabase } = await requireAdmin();
+  const id = str(formData, "id");
+  const person_name = str(formData, "person_name", 120);
+  const video_url = str(formData, "video_url", 500);
+  if (!person_name) return { ok: false, error: "Name is required." };
+  if (!/^https?:\/\//.test(video_url)) return { ok: false, error: "Video URL must start with http:// or https://." };
+  const poster = str(formData, "poster_url", 500);
+  const row = {
+    person_name,
+    person_role: str(formData, "person_role", 120),
+    company: str(formData, "company", 120),
+    video_url,
+    poster_url: poster || null,
+    quote: str(formData, "quote", 240),
+    sort_order: Number.parseInt(str(formData, "sort_order", 6), 10) || 0,
+    status: (str(formData, "status") === "published" ? "published" : "draft") as PostStatus,
+  };
+
+  let savedId = id;
+  if (id) {
+    const { error } = await supabase.from("idm_testimonials").update(row).eq("id", id);
+    if (error) return { ok: false, error: friendly(error.message) };
+  } else {
+    const { data, error } = await supabase.from("idm_testimonials").insert(row).select("id").single();
+    if (error) return { ok: false, error: friendly(error.message) };
+    savedId = data.id;
+  }
+  revalidatePath("/");
+  revalidatePath("/admin/testimonials");
+  return { ok: true, id: savedId };
+}
+
+export async function setTestimonialStatus(id: string, status: PostStatus): Promise<ActionResult> {
+  const { supabase } = await requireAdmin();
+  const { error } = await supabase.from("idm_testimonials").update({ status }).eq("id", id);
+  if (error) return { ok: false, error: friendly(error.message) };
+  revalidatePath("/");
+  revalidatePath("/admin/testimonials");
+  return { ok: true };
+}
+
+export async function deleteTestimonial(id: string): Promise<ActionResult> {
+  const { supabase } = await requireAdmin();
+  const { error } = await supabase.from("idm_testimonials").delete().eq("id", id);
+  if (error) return { ok: false, error: friendly(error.message) };
+  revalidatePath("/");
+  revalidatePath("/admin/testimonials");
+  return { ok: true };
+}
+
 /* ---------------- Leads ---------------- */
 
 const LEAD_STATUSES: LeadStatus[] = ["new", "contacted", "qualified", "closed"];

@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { supabaseConfigured } from "@/lib/supabase/env";
 export * from "./cms-types";
-import type { Lead, Page, Post, Profile } from "./cms-types";
+import type { Lead, Page, Post, Profile, Testimonial } from "./cms-types";
 
 /* ---------- Public reads (anon-safe, RLS-filtered to published) ---------- */
 
@@ -33,6 +33,13 @@ export async function getPageBySlug(slug: string): Promise<Page | null> {
   const supabase = await createClient();
   const { data } = await supabase.from("idm_pages").select("*").eq("slug", slug).eq("status", "published").maybeSingle();
   return (data as Page | null) ?? null;
+}
+
+export async function getPublishedTestimonials(): Promise<Testimonial[]> {
+  if (!supabaseConfigured) return [];
+  const supabase = await createClient();
+  const { data } = await supabase.from("idm_testimonials").select("*").eq("status", "published").order("sort_order").order("created_at");
+  return (data ?? []) as Testimonial[];
 }
 
 export async function isSignupOpen(): Promise<boolean> {
@@ -77,6 +84,18 @@ export async function getPageById(id: string): Promise<Page | null> {
   const supabase = await createClient();
   const { data } = await supabase.from("idm_pages").select("*").eq("id", id).maybeSingle();
   return (data as Page | null) ?? null;
+}
+
+export async function getAllTestimonials(): Promise<Testimonial[]> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("idm_testimonials").select("*").order("sort_order").order("created_at");
+  return (data ?? []) as Testimonial[];
+}
+
+export async function getTestimonialById(id: string): Promise<Testimonial | null> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("idm_testimonials").select("*").eq("id", id).maybeSingle();
+  return (data as Testimonial | null) ?? null;
 }
 
 export async function getAllLeads(): Promise<Lead[]> {

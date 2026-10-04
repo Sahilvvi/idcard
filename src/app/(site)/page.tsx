@@ -9,6 +9,7 @@ import { PartnershipPaths } from "@/components/PartnershipPaths";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { ProofStats } from "@/components/ProofStats";
 import { TrustMetrics } from "@/components/TrustMetrics";
+import { VideoTestimonials } from "@/components/VideoTestimonials";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <ProofStats />
       <IndustrySolutions />
       <CTASection />
+      <VideoTestimonials />
       <FAQ />
       <ContactForm />
     </main>

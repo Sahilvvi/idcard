@@ -35,6 +35,34 @@ export type Page = {
   updated_at: string;
 };
 
+export type Testimonial = {
+  id: string;
+  person_name: string;
+  person_role: string;
+  company: string;
+  video_url: string;
+  poster_url: string | null;
+  quote: string;
+  sort_order: number;
+  status: PostStatus;
+  created_at: string;
+  updated_at: string;
+};
+
+export type VideoEmbed = { kind: "youtube"; id: string } | { kind: "vimeo"; id: string } | { kind: "file"; src: string };
+
+export function parseVideoUrl(url: string): VideoEmbed {
+  const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/);
+  if (yt) return { kind: "youtube", id: yt[1] };
+  const vm = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vm) return { kind: "vimeo", id: vm[1] };
+  return { kind: "file", src: url };
+}
+
+export function defaultPoster(embed: VideoEmbed): string | null {
+  return embed.kind === "youtube" ? `https://i.ytimg.com/vi/${embed.id}/hqdefault.jpg` : null;
+}
+
 export type LeadStatus = "new" | "contacted" | "qualified" | "closed";
 
 export type Lead = {

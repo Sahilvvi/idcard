@@ -92,6 +92,23 @@ create table if not exists public.idm_pages (
 drop trigger if exists idm_pages_updated_at on public.idm_pages;
 create trigger idm_pages_updated_at before update on public.idm_pages for each row execute function public.idm_set_updated_at();
 
+create table if not exists public.idm_testimonials (
+  id uuid primary key default gen_random_uuid(),
+  person_name text not null,
+  person_role text not null default '',
+  company text not null default '',
+  video_url text not null,
+  poster_url text,
+  quote text not null default '',
+  sort_order int not null default 0,
+  status text not null default 'draft' check (status in ('draft', 'published')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists idm_testimonials_status_sort_idx on public.idm_testimonials (status, sort_order);
+drop trigger if exists idm_testimonials_updated_at on public.idm_testimonials;
+create trigger idm_testimonials_updated_at before update on public.idm_testimonials for each row execute function public.idm_set_updated_at();
+
 create table if not exists public.idm_leads (
   id uuid primary key default gen_random_uuid(),
   name text not null,
@@ -116,6 +133,7 @@ alter table public.idm_profiles enable row level security;
 alter table public.idm_posts enable row level security;
 alter table public.idm_pages enable row level security;
 alter table public.idm_leads enable row level security;
+alter table public.idm_testimonials enable row level security;
 
 drop policy if exists idm_profiles_self_read on public.idm_profiles;
 create policy idm_profiles_self_read on public.idm_profiles for select to authenticated using (public.idm_is_admin());
@@ -129,6 +147,11 @@ drop policy if exists idm_pages_public_read on public.idm_pages;
 create policy idm_pages_public_read on public.idm_pages for select to anon, authenticated using (status = 'published' or public.idm_is_admin());
 drop policy if exists idm_pages_admin_write on public.idm_pages;
 create policy idm_pages_admin_write on public.idm_pages for all to authenticated using (public.idm_is_admin()) with check (public.idm_is_admin());
+
+drop policy if exists idm_testimonials_public_read on public.idm_testimonials;
+create policy idm_testimonials_public_read on public.idm_testimonials for select to anon, authenticated using (status = 'published' or public.idm_is_admin());
+drop policy if exists idm_testimonials_admin_write on public.idm_testimonials;
+create policy idm_testimonials_admin_write on public.idm_testimonials for all to authenticated using (public.idm_is_admin()) with check (public.idm_is_admin());
 
 drop policy if exists idm_leads_public_insert on public.idm_leads;
 create policy idm_leads_public_insert on public.idm_leads for insert to anon, authenticated with check (char_length(name) between 1 and 200);
