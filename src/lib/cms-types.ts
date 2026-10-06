@@ -49,13 +49,15 @@ export type Testimonial = {
   updated_at: string;
 };
 
-export type VideoEmbed = { kind: "youtube"; id: string } | { kind: "vimeo"; id: string } | { kind: "file"; src: string };
+export type VideoEmbed = { kind: "youtube"; id: string } | { kind: "vimeo"; id: string } | { kind: "instagram"; id: string } | { kind: "file"; src: string };
 
 export function parseVideoUrl(url: string): VideoEmbed {
   const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/);
   if (yt) return { kind: "youtube", id: yt[1] };
   const vm = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
   if (vm) return { kind: "vimeo", id: vm[1] };
+  const ig = url.match(/instagram\.com\/(?:[\w.]+\/)?(?:reel|reels|p|tv)\/([\w-]+)/);
+  if (ig) return { kind: "instagram", id: ig[1] };
   return { kind: "file", src: url };
 }
 

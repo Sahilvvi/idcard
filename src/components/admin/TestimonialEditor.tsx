@@ -99,13 +99,13 @@ export function TestimonialEditor({ item }: { item?: Testimonial }) {
             </label>
             <input id="video_url" name="video_url" required type="url" value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} placeholder="https://www.youtube.com/watch?v=… or https://…/clip.mp4" className={inputCls} />
             <p className="mt-1.5 text-[12px] text-ash">
-              YouTube, Vimeo or a direct .mp4 link.
+              YouTube, Vimeo, Instagram reel or a direct .mp4 link (direct .mp4 autoplays silently inside the circle).
               {embed && <span className="ml-1 font-semibold text-brand">Detected: {embed.kind === "file" ? "direct video file" : embed.kind}</span>}
             </p>
           </div>
           <div>
             <label htmlFor="poster_url" className={labelCls}>
-              Thumbnail image URL <span className="font-normal text-ash">(optional — YouTube thumbnails are used automatically)</span>
+              Thumbnail image URL <span className="font-normal text-ash">(YouTube thumbnails are automatic; required for Instagram/Vimeo to show a face in the circle)</span>
             </label>
             <input id="poster_url" name="poster_url" type="url" value={posterUrl} onChange={(e) => setPosterUrl(e.target.value)} className={inputCls} />
           </div>
@@ -148,7 +148,7 @@ export function TestimonialEditor({ item }: { item?: Testimonial }) {
 
         <div className="card overflow-hidden">
           <p className="micro px-5 pt-4 text-ash">Card preview</p>
-          <div className="m-5 aspect-[4/5] overflow-hidden rounded-2xl bg-navy">
+          <div className="mx-auto my-5 size-[180px] overflow-hidden rounded-full bg-navy ring-4 ring-brand/40">
             {preview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={preview} alt="" className="h-full w-full object-cover" />

@@ -17,7 +17,7 @@ export async function VideoTestimonials() {
           title={["Hear It From", "The People We Print For"]}
           accentLine={1}
           tone="dark"
-          sub="Schools, event teams, print partners and enterprises on what working with iDM actually looks like — in their own words."
+          sub="Tap a story to watch. Schools, event teams, print partners and enterprises on what working with iDM actually looks like — in their own words."
         />
         <TestimonialCarousel items={items} />
       </div>
