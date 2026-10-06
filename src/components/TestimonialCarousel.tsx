@@ -1,96 +1,141 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { defaultPoster, parseVideoUrl, type Testimonial } from "@/lib/cms-types";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { defaultPoster, parseVideoUrl, type Testimonial, type VideoEmbed } from "@/lib/cms-types";
 import { Reveal } from "./ui/Reveal";
 
 export function TestimonialCarousel({ items }: { items: Testimonial[] }) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState<string | null>(null);
-
-  const scrollTo = useCallback((i: number) => {
-    const track = trackRef.current;
-    const card = track?.children[i] as HTMLElement | undefined;
-    if (!track || !card) return;
-    track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: "smooth" });
-  }, []);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const cards = Array.from(track.children) as HTMLElement[];
-        const x = track.scrollLeft;
-        let best = 0;
-        let dist = Infinity;
-        cards.forEach((c, i) => {
-          const d = Math.abs(c.offsetLeft - track.offsetLeft - x);
-          if (d < dist) {
-            dist = d;
-            best = i;
-          }
-        });
-        setIndex(best);
-      });
-    };
-    track.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      track.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  const canPrev = index > 0;
-  const canNext = index < items.length - 1;
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <div className="mt-12 sm:mt-16">
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2" role="tablist" aria-label="Testimonials">
-          {items.map((t, i) => (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              aria-selected={i === index}
-              aria-label={`Show testimonial ${i + 1}`}
-              onClick={() => scrollTo(i)}
-              className={`h-1.5 rounded-full transition-[width,background-color] duration-500 ease-[var(--ease-out-expo)] ${i === index ? "w-8 bg-accent" : "w-2.5 bg-white/25 hover:bg-white/50"}`}
-            />
-          ))}
-        </div>
-        <div className="flex gap-2">
-          <ArrowButton dir="prev" disabled={!canPrev} onClick={() => scrollTo(index - 1)} />
-          <ArrowButton dir="next" disabled={!canNext} onClick={() => scrollTo(index + 1)} />
-        </div>
-      </div>
-
-      <div
-        ref={trackRef}
-        className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 [scrollbar-width:none] sm:mx-0 sm:px-0 [&::-webkit-scrollbar]:hidden"
-      >
+    <>
+      <div className="-mx-4 mt-12 flex snap-x gap-6 overflow-x-auto px-4 pb-6 pt-3 [scrollbar-width:none] sm:mt-16 sm:justify-center sm:gap-10 sm:px-0 [&::-webkit-scrollbar]:hidden">
         {items.map((t, i) => (
-          <Reveal key={t.id} delay={Math.min(i, 3) * 90} y={28} className="w-[85vw] max-w-[380px] shrink-0 snap-start sm:w-[360px]">
-            <TestimonialCard item={t} active={playing === t.id} onPlay={() => setPlaying(t.id)} />
+          <Reveal key={t.id} delay={Math.min(i, 5) * 80} y={20} scale={0.9} className="shrink-0 snap-center">
+            <StoryBubble item={t} onOpen={() => setOpen(i)} />
           </Reveal>
         ))}
       </div>
-    </div>
+      {open !== null && <StoryViewer items={items} index={open} onChange={setOpen} onClose={() => setOpen(null)} />}
+    </>
   );
 }
 
-function ArrowButton({ dir, disabled, onClick }: { dir: "prev" | "next"; disabled: boolean; onClick: () => void }) {
+function initialsOf(name: string) {
+  return name
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+function StoryBubble({ item, onOpen }: { item: Testimonial; onOpen: () => void }) {
+  const embed = parseVideoUrl(item.video_url);
+  const poster = item.poster_url || defaultPoster(embed);
+
+  return (
+    <button type="button" onClick={onOpen} aria-label={`Watch testimonial from ${item.person_name}`} className="group flex w-[150px] flex-col items-center text-center sm:w-[196px]">
+      <span className="relative grid size-[150px] place-items-center sm:size-[196px]">
+        <span aria-hidden className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,var(--color-brand),var(--color-teal),var(--color-accent),var(--color-brand))] opacity-90 transition-[opacity,transform] duration-500 group-hover:opacity-100 group-hover:animate-[spin-slow_6s_linear_infinite] motion-reduce:animate-none" />
+        <span aria-hidden className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,var(--color-brand),var(--color-teal),var(--color-accent),var(--color-brand))] opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-60" />
+        <span className="relative size-[136px] overflow-hidden rounded-full border-[4px] border-navy bg-navy-deep sm:size-[180px]">
+          {embed.kind === "file" ? (
+            <video src={embed.src} poster={poster ?? undefined} muted loop autoPlay playsInline preload="metadata" className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-110" />
+          ) : poster ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={poster} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-110" />
+          ) : (
+            <span className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_30%_20%,rgba(29,78,216,0.6),transparent_55%),radial-gradient(circle_at_80%_90%,rgba(14,165,164,0.5),transparent_55%)] font-display text-[40px] font-bold text-white/30">{initialsOf(item.person_name)}</span>
+          )}
+          <span aria-hidden className="absolute inset-0 grid place-items-center bg-navy-deep/20 transition-colors group-hover:bg-navy-deep/35">
+            <span className="grid size-12 place-items-center rounded-full bg-white/90 text-navy shadow-[0_12px_30px_-8px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-110 sm:size-14">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
+                <path d="M7 5v14l12-7L7 5Z" />
+              </svg>
+            </span>
+          </span>
+        </span>
+      </span>
+      <span className="mt-4 block w-full truncate font-display text-[15px] font-semibold text-white sm:text-[16px]">{item.person_name}</span>
+      <span className="block w-full truncate text-[12.5px] text-white/60 sm:text-[13px]">{[item.person_role, item.company].filter(Boolean).join(" · ")}</span>
+    </button>
+  );
+}
+
+function StoryViewer({ items, index, onChange, onClose }: { items: Testimonial[]; index: number; onChange: (i: number) => void; onClose: () => void }) {
+  const item = items[index];
+  const embed = parseVideoUrl(item.video_url);
+  const hasPrev = index > 0;
+  const hasNext = index < items.length - 1;
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && hasPrev) onChange(index - 1);
+      if (e.key === "ArrowRight" && hasNext) onChange(index + 1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [index, hasPrev, hasNext, onChange, onClose]);
+
+  return createPortal(
+    <div className="fixed inset-0 z-[120] grid place-items-center p-3 sm:p-6" role="dialog" aria-modal="true" aria-label={`Testimonial from ${item.person_name}`}>
+      <button aria-label="Close" onClick={onClose} className="absolute inset-0 bg-navy-deep/85 backdrop-blur-md animate-[fade-up_0.3s_ease_both]" />
+
+      <div key={item.id} className="relative flex h-[min(88dvh,820px)] w-full max-w-[420px] flex-col overflow-hidden rounded-[28px] bg-black shadow-[0_60px_120px_-40px_rgba(0,0,0,0.9)] ring-1 ring-white/10 animate-[om-in_0.5s_var(--ease-out-expo)_both]">
+        <div aria-hidden className="absolute inset-x-4 top-3 z-20 flex gap-1.5">
+          {items.map((t, i) => (
+            <span key={t.id} className={`h-1 flex-1 rounded-full ${i <= index ? "bg-white" : "bg-white/30"}`} />
+          ))}
+        </div>
+
+        <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-black/70 to-transparent px-4 pb-10 pt-7">
+          <div className="flex items-center gap-3">
+            <span className="grid size-10 place-items-center rounded-full bg-gradient-to-br from-brand to-teal font-display text-[13px] font-bold text-white ring-2 ring-white/40">{initialsOf(item.person_name)}</span>
+            <div className="min-w-0">
+              <p className="truncate font-display text-[15px] font-semibold text-white">{item.person_name}</p>
+              <p className="truncate text-[12px] text-white/70">{[item.person_role, item.company].filter(Boolean).join(" · ")}</p>
+            </div>
+          </div>
+          <button type="button" onClick={onClose} aria-label="Close" className="grid size-9 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="relative flex-1">
+          <Player embed={embed} />
+        </div>
+
+        {item.quote && (
+          <div className="absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-black/80 to-transparent px-5 pb-6 pt-14">
+            <p className="text-[14.5px] leading-relaxed text-white/90">“{item.quote}”</p>
+          </div>
+        )}
+      </div>
+
+      <NavButton dir="prev" visible={hasPrev} onClick={() => onChange(index - 1)} />
+      <NavButton dir="next" visible={hasNext} onClick={() => onChange(index + 1)} />
+    </div>,
+    document.body,
+  );
+}
+
+function NavButton({ dir, visible, onClick }: { dir: "prev" | "next"; visible: boolean; onClick: () => void }) {
+  if (!visible) return null;
   return (
     <button
       type="button"
-      aria-label={dir === "prev" ? "Previous testimonial" : "Next testimonial"}
-      disabled={disabled}
       onClick={onClick}
-      className="grid size-11 place-items-center rounded-full border border-white/15 bg-white/5 text-white backdrop-blur transition-[background-color,border-color,transform,opacity] hover:border-accent/60 hover:bg-white/10 enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-30"
+      aria-label={dir === "prev" ? "Previous testimonial" : "Next testimonial"}
+      className={`absolute top-1/2 z-30 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur transition-[background-color,transform] hover:bg-white/25 sm:size-12 ${dir === "prev" ? "left-3 sm:left-[calc(50%-290px)]" : "right-3 sm:right-[calc(50%-290px)]"}`}
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={dir === "prev" ? "rotate-180" : ""}>
         <path d="M5 12h14M13 6l6 6-6 6" />
@@ -99,67 +144,16 @@ function ArrowButton({ dir, disabled, onClick }: { dir: "prev" | "next"; disable
   );
 }
 
-function TestimonialCard({ item, active, onPlay }: { item: Testimonial; active: boolean; onPlay: () => void }) {
-  const embed = parseVideoUrl(item.video_url);
-  const poster = item.poster_url || defaultPoster(embed);
-  const initials = item.person_name
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("");
-
-  return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)] backdrop-blur transition-[transform,border-color,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_40px_80px_-30px_rgba(29,78,216,0.45)]">
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-navy-deep">
-        {active ? (
-          <Player embed={embed} />
-        ) : (
-          <button type="button" onClick={onPlay} aria-label={`Play testimonial from ${item.person_name}`} className="absolute inset-0 block h-full w-full text-left">
-            {poster ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={poster} alt="" className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105" loading="lazy" />
-            ) : (
-              <div className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_30%_20%,rgba(29,78,216,0.5),transparent_55%),radial-gradient(circle_at_80%_90%,rgba(14,165,164,0.4),transparent_55%)]">
-                <span className="font-display text-[64px] font-bold text-white/20">{initials}</span>
-              </div>
-            )}
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/30 to-transparent" />
-            <span aria-hidden className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/95 text-navy shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-110">
-              <span className="absolute inset-0 animate-ping rounded-full bg-white/40 motion-reduce:hidden" style={{ animationDuration: "2.4s" }} />
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" className="relative ml-1">
-                <path d="M7 5v14l12-7L7 5Z" />
-              </svg>
-            </span>
-            <span className="micro absolute left-5 top-5 rounded-full border border-white/15 bg-navy-deep/60 px-3 py-1.5 text-white/80 backdrop-blur">Video testimonial</span>
-          </button>
-        )}
-      </div>
-
-      <div className="relative flex flex-1 flex-col gap-4 p-6">
-        {item.quote && <p className="text-[15px] leading-relaxed text-white/80">“{item.quote}”</p>}
-        <div className="mt-auto flex items-center gap-3 border-t border-white/10 pt-4">
-          <span className="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand to-teal font-display text-[14px] font-bold text-white">{initials}</span>
-          <div className="min-w-0">
-            <p className="truncate font-display text-[16px] font-semibold text-white">{item.person_name}</p>
-            <p className="truncate text-[13px] text-white/60">
-              {item.person_role}
-              {item.person_role && item.company ? " · " : ""}
-              {item.company}
-            </p>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function Player({ embed }: { embed: ReturnType<typeof parseVideoUrl> }) {
+function Player({ embed }: { embed: VideoEmbed }) {
   const cls = "absolute inset-0 h-full w-full";
   if (embed.kind === "youtube") {
     return <iframe className={cls} src={`https://www.youtube-nocookie.com/embed/${embed.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`} title="Client testimonial" allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />;
   }
   if (embed.kind === "vimeo") {
     return <iframe className={cls} src={`https://player.vimeo.com/video/${embed.id}?autoplay=1&dnt=1`} title="Client testimonial" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />;
+  }
+  if (embed.kind === "instagram") {
+    return <iframe className={`${cls} bg-white`} src={`https://www.instagram.com/reel/${embed.id}/embed/`} title="Client testimonial" allow="autoplay; encrypted-media" allowFullScreen />;
   }
   return <video className={`${cls} object-cover`} src={embed.src} controls autoPlay playsInline />;
 }
