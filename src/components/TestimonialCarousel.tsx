@@ -42,6 +42,8 @@ function StoryBubble({ item, onOpen }: { item: Testimonial; onOpen: () => void }
         <span className="relative size-[136px] overflow-hidden rounded-full border-[4px] border-navy bg-navy-deep sm:size-[180px]">
           {embed.kind === "file" ? (
             <video src={embed.src} poster={poster ?? undefined} muted loop autoPlay playsInline preload="metadata" className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-110" />
+          ) : embed.kind === "youtube" || embed.kind === "vimeo" ? (
+            <BubblePreview embed={embed} poster={poster} />
           ) : poster ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={poster} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-110" />
@@ -60,6 +62,29 @@ function StoryBubble({ item, onOpen }: { item: Testimonial; onOpen: () => void }
       <span className="mt-4 block w-full truncate font-display text-[15px] font-semibold text-white sm:text-[16px]">{item.person_name}</span>
       <span className="block w-full truncate text-[12.5px] text-white/60 sm:text-[13px]">{[item.person_role, item.company].filter(Boolean).join(" · ")}</span>
     </button>
+  );
+}
+
+function BubblePreview({ embed, poster }: { embed: Extract<VideoEmbed, { kind: "youtube" | "vimeo" }>; poster: string | null }) {
+  const src =
+    embed.kind === "youtube"
+      ? `https://www.youtube.com/embed/${embed.id}?autoplay=1&mute=1&loop=1&playlist=${embed.id}&controls=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&iv_load_policy=3`
+      : `https://player.vimeo.com/video/${embed.id}?background=1&autoplay=1&muted=1&loop=1&dnt=1`;
+  return (
+    <span aria-hidden className="absolute inset-0 overflow-hidden">
+      {poster && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={poster} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+      )}
+      <iframe
+        src={src}
+        title=""
+        tabIndex={-1}
+        loading="lazy"
+        allow="autoplay; encrypted-media"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[125%] w-[calc(125%*16/9)] -translate-x-1/2 -translate-y-1/2 border-0 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-110"
+      />
+    </span>
   );
 }
 
