@@ -50,13 +50,6 @@ function StoryBubble({ item, onOpen }: { item: Testimonial; onOpen: () => void }
           ) : (
             <span className="grid h-full w-full place-items-center bg-[radial-gradient(circle_at_30%_20%,rgba(29,78,216,0.6),transparent_55%),radial-gradient(circle_at_80%_90%,rgba(14,165,164,0.5),transparent_55%)] font-display text-[40px] font-bold text-white/30">{initialsOf(item.person_name)}</span>
           )}
-          <span aria-hidden className="absolute inset-0 grid place-items-center bg-navy-deep/20 transition-colors group-hover:bg-navy-deep/35">
-            <span className="grid size-12 place-items-center rounded-full bg-white/90 text-navy shadow-[0_12px_30px_-8px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:scale-110 sm:size-14">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="ml-0.5">
-                <path d="M7 5v14l12-7L7 5Z" />
-              </svg>
-            </span>
-          </span>
         </span>
       </span>
       <span className="mt-4 block w-full truncate font-display text-[15px] font-semibold text-white sm:text-[16px]">{item.person_name}</span>
