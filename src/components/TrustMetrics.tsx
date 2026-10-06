@@ -41,7 +41,7 @@ function CountUp({ value, suffix }: { value: number; suffix: string }) {
 
 export function TrustMetrics() {
   return (
-    <section aria-label="Network metrics" className="relative bg-surface pb-8 pt-24 sm:pt-28">
+    <section aria-label="Network metrics" className="relative bg-surface pb-16 pt-24 sm:pb-24 sm:pt-28">
       <div className="container-x">
         <div className="card grid grid-cols-2 divide-line-soft overflow-hidden !rounded-3xl md:grid-cols-4 md:divide-x">
           {trustMetrics.map((m, i) => (

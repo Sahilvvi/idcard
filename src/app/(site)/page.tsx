@@ -16,10 +16,10 @@ export default function Home() {
     <main id="top">
       <Hero />
       <TrustMetrics />
+      <NorthEastCoverage />
       <EcosystemSection />
       <ProductCarousel />
       <PartnershipPaths />
-      <NorthEastCoverage />
       <ProofStats />
       <IndustrySolutions />
       <CTASection />
